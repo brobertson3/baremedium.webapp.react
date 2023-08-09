@@ -25,7 +25,7 @@ const MainNavigation = ({setNavHeight}: INavigationProps) => {
         </LogoDiv>
         <NavLinkList style={{ listStyleType: 'none' }}>
           <NavLink>About</NavLink>
-          <NavLink>Project</NavLink>
+          <NavLink>Projects</NavLink>
           <NavLink>Contact</NavLink>
         </NavLinkList>
       </LogoNav>

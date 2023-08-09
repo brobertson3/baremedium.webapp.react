@@ -1,9 +1,10 @@
 import React from 'react'
 import * as Styled from './home-style'
 import useScreenSize from '../../hooks/useScreenSize'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faGithub, faLinkedin, faTwitter, faInstagram, faCodepen } from '@fortawesome/free-brands-svg-icons'
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+import SmartDecisionScreenshot from '../../assets/smart-decision-screenshot.png'
 
 interface IHomeProps {
   navHeight: number;
@@ -34,29 +35,72 @@ function Home({navHeight}: IHomeProps) {
     }
   ]
 
+  const smartDecisionSkills = ['React', 'JavaScript', 'Firebase', 'Material UI']
+
   return (
-    <main style={{ display: 'flex', alignItems: 'center', height: window.innerHeight - navHeight - 16, marginLeft: '96px', marginRight: '96px' }}>
-      <Styled.SocialLinkDiv style={{ left: screenSize.width > 1280 ? `${(screenSize.width - 1280) / 2 + 16}px` : '16px' }}>
+    <Styled.Main>
+      <Styled.SocialLinkDiv screenWidth={screenSize.width}>
         {
           socialLinks.map((socialLink) => (
             <Styled.SocialLink href={socialLink.link} target='_blank' rel='noopener'>
-              <FontAwesomeIcon icon={socialLink.icon as IconProp} style={{width: '30px', height: '30px', color: '#FFFFFF' }} />
+              <Styled.CustomFontAwesomeIcon width={30} height={30} icon={socialLink.icon as IconProp} />
             </Styled.SocialLink>
           ))
         }
-        <div style={{ width: '2px', height: '20vh', marginLeft: '14px', backgroundColor: '#FFFFFF' }}>
-
-        </div>
+        <Styled.SocialVerticalLine />
       </Styled.SocialLinkDiv>
 
-      <Styled.Header>
-        <Styled.Tagline>Hey there. My name is</Styled.Tagline>
+      <Styled.Header height={window.innerHeight - navHeight - 16}>
+        <div>
+          <Styled.Tagline>Hey there. My name is</Styled.Tagline>
           <Styled.Title>
-            Brent Robertson.<br /><Styled.TitleSecondary>I'm a </Styled.TitleSecondary><span style={{color: '#3967B1'}}>Front End Engineer</span><Styled.TitleSecondary> based in California.</Styled.TitleSecondary>
+            Brent Robertson.<br />
+            <Styled.TitleSecondary>I'm a </Styled.TitleSecondary>
+            <Styled.SecondaryTitleSpan>Front End Engineer</Styled.SecondaryTitleSpan>
+            <Styled.TitleSecondary> based in Southern California.</Styled.TitleSecondary>
           </Styled.Title>
           <Styled.Subtitle>I create digital experiences for the web. I specialize in web development with React, TypeScript, JavaScript, Node.js, Express, and Firebase.</Styled.Subtitle>
+        </div>
       </Styled.Header>
-    </main>
+      <h2>Projects</h2>
+      <Styled.HeadingUnderline />
+      <Styled.ProjectContainerDiv>
+        <Styled.ProjectScreenshotDiv>
+          <a href='https://smart-decision-1308d.web.app' target='_blank' rel='noopener noreferrer'>
+            <Styled.ProjectImg src={SmartDecisionScreenshot} />
+          </a>
+        </Styled.ProjectScreenshotDiv>
+        <Styled.ProjectContentDiv>
+          <Styled.ProjectTitleDiv>
+            <Styled.ProjectTitleTextDiv>
+              <Styled.ProjectTitle>Smart Decision</Styled.ProjectTitle>
+              <Styled.ProjectTitleCircleBackground />
+            </Styled.ProjectTitleTextDiv>
+          </Styled.ProjectTitleDiv>
+          <Styled.ProjectDescriptionDiv>
+            <Styled.ProjectDescription>
+              A web app to help you choose the best option based on your priorities. Make an account, create a new decision, and view your results.
+              Your decisions are saved to view or edit later.
+            </Styled.ProjectDescription>
+          </Styled.ProjectDescriptionDiv>
+          <Styled.ProjectSkillList>
+            {
+              smartDecisionSkills.map((skill) => (
+                <Styled.ProjectSkillListItem>{skill}</Styled.ProjectSkillListItem>
+              ))
+            }
+          </Styled.ProjectSkillList>
+          <Styled.ProjectLinksList>
+            <Styled.IconLink href='https://github.com/brobertson3' target='_blank' rel='noopener noreferrer' style={{ marginRight: '12px' }}>
+              <Styled.CustomFontAwesomeIcon width={26} height={26} icon={faGithub} />
+            </Styled.IconLink>
+            <Styled.IconLink href='https://smart-decision-1308d.web.app' target='_blank' rel='noopener noreferrer'>
+              <Styled.CustomFontAwesomeIcon width={24} height={24} icon={faArrowUpRightFromSquare} />
+            </Styled.IconLink>
+          </Styled.ProjectLinksList>
+        </Styled.ProjectContentDiv>
+      </Styled.ProjectContainerDiv>
+    </Styled.Main>
   )
 }
 
