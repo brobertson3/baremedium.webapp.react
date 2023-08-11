@@ -61,8 +61,8 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, projectsSectionR
         </LogoDiv>
         <NavLinkList style={{ listStyleType: 'none' }}>
           {
-            navigationLinks.map((link) => (
-              <NavLink onClick={() => handleLinkClick(link.text)}>{link.text}</NavLink>
+            navigationLinks.map((link, index) => (
+              <NavLink key={`navigationLink${index}`} onClick={() => handleLinkClick(link.text)}>{link.text}</NavLink>
             ))
           }
         </NavLinkList>

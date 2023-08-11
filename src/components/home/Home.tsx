@@ -89,10 +89,10 @@ function Home({ aboutMeSectionRef, contactSectionRef, projectsSectionRef, navHei
 
   return (
     <Styled.Main>
-      <Styled.SocialLinkDiv screenWidth={screenSize.width}>
+      <Styled.SocialLinkDiv screenwidth={screenSize.width}>
         {
-          socialLinks.map((socialLink) => (
-            <Styled.SocialLink href={socialLink.link} target='_blank' rel='noopener'>
+          socialLinks.map((socialLink, index) => (
+            <Styled.SocialLink key={`socialLink${index}`} href={socialLink.link} target='_blank' rel='noopener'>
               <Styled.CustomFontAwesomeIcon width={30} height={30} icon={socialLink.icon as IconProp} />
             </Styled.SocialLink>
           ))
@@ -142,14 +142,14 @@ function Home({ aboutMeSectionRef, contactSectionRef, projectsSectionRef, navHei
       </Styled.SectionHeaderDiv>
       {
         projects.map((project, index) => (
-          <Styled.ProjectContainerDiv isEven={(index + 1) % 2 === 0}>
-            <Styled.ProjectScreenshotDiv isEven={(index + 1) % 2 === 0}>
+          <Styled.ProjectContainerDiv key={`projectContainer${index}`} $iseven={(index + 1) % 2 === 0}>
+            <Styled.ProjectScreenshotDiv $iseven={(index + 1) % 2 === 0}>
               <a href={project.link} target='_blank' rel='noopener noreferrer'>
                 <Styled.ProjectImg src={project.screenshot} alt={project.altText} />
               </a>
             </Styled.ProjectScreenshotDiv>
-            <Styled.ProjectContentDiv isEven={(index + 1) % 2 === 0}>
-              <Styled.ProjectTitleDiv isEven={(index + 1) % 2 === 0}>
+            <Styled.ProjectContentDiv $iseven={(index + 1) % 2 === 0}>
+              <Styled.ProjectTitleDiv $iseven={(index + 1) % 2 === 0}>
                 <Styled.ProjectTitleTextDiv>
                   <Styled.ProjectTitleLink href={project.link}>
                     <Styled.ProjectTitle>{project.title}</Styled.ProjectTitle>
@@ -162,17 +162,17 @@ function Home({ aboutMeSectionRef, contactSectionRef, projectsSectionRef, navHei
                   {project.description}
                 </Styled.ProjectDescription>
               </Styled.ProjectDescriptionDiv>
-              <Styled.ProjectSkillList isEven={(index + 1) % 2 === 0}>
+              <Styled.ProjectSkillList $iseven={(index + 1) % 2 === 0}>
                 {
-                  project.skills.map((skill) => (
-                    <Styled.ProjectSkillListItem>{skill}</Styled.ProjectSkillListItem>
+                  project.skills.map((skill, index) => (
+                    <Styled.ProjectSkillListItem key={`projectSkill${index}`}>{skill}</Styled.ProjectSkillListItem>
                   ))
                 }
               </Styled.ProjectSkillList>
-              <Styled.ProjectLinksList isEven={(index + 1) % 2 === 0}>
+              <Styled.ProjectLinksList $iseven={(index + 1) % 2 === 0}>
                 {
                   project.githubLink && (
-                    <Styled.ProjectIconLink isGithub={!!project.githubLink} href={project.githubLink} target='_blank' rel='noopener noreferrer'>
+                    <Styled.ProjectIconLink $isgithub={!!project.githubLink} href={project.githubLink} target='_blank' rel='noopener noreferrer'>
                       <Styled.CustomFontAwesomeIcon width={26} height={26} icon={faGithub} />
                     </Styled.ProjectIconLink>
                   )

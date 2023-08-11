@@ -18,15 +18,15 @@ interface IHeaderProps {
 }
 
 interface IProjectIconLinkProps {
-  isGithub?: boolean;
+  $isgithub?: boolean;
 }
 
 interface IProjectProps {
-  isEven: boolean;
+  $iseven: boolean;
 }
 
 interface ISocialLinkDivProps {
-  screenWidth: number;
+  screenwidth: number;
 }
 
 export const AboutBioDiv = styled.div`
@@ -128,7 +128,7 @@ export const HeadingUnderline = styled.div`
 
 export const ProjectIconLink = styled.a<IProjectIconLinkProps>`
   color: #FFFFFF;
-  margin-right: ${props => props.isGithub ? '12px' : '0'};
+  margin-right: ${props => props.$isgithub ? '12px' : '0'};
 
   &:hover {
     color: ${Shared.customBlue};
@@ -142,14 +142,14 @@ export const Main = styled.main`
 export const ProjectContainerDiv = styled.div<IProjectProps>`
   position: relative;
   margin-bottom: 96px;
-  display: ${props => props.isEven ? 'flex' : 'block'};
+  display: ${props => props.$iseven ? 'flex' : 'block'};
   justify-content: flex-end;
 `
 
 export const ProjectContentDiv = styled.div<IProjectProps>`
   position: absolute;
-  right: ${props => props.isEven ? 'auto' : '0'};
-  left: ${props => props.isEven ? '0' : 'auto'};
+  right: ${props => props.$iseven ? 'auto' : '0'};
+  left: ${props => props.$iseven ? '0' : 'auto'};
   top: 50%;
   transform: translateY(-50%);
   width: 50%;
@@ -181,7 +181,7 @@ export const ProjectImg = styled.img`
 `
 
 export const ProjectLinksList = styled.div<IProjectProps>`
-  text-align: ${props => props.isEven ? 'left' : 'right'};
+  text-align: ${props => props.$iseven ? 'left' : 'right'};
 `
 
 export const ProjectScreenshotDiv = styled.div<IProjectProps>`
@@ -194,7 +194,7 @@ export const ProjectScreenshotDiv = styled.div<IProjectProps>`
 export const ProjectSkillList = styled.ul<IProjectProps>`
   list-style-type: none;
   padding: 0;
-  text-align: ${props => props.isEven ? 'left' : 'right'};
+  text-align: ${props => props.$iseven ? 'left' : 'right'};
 `
 
 export const ProjectSkillListItem = styled.li`
@@ -230,7 +230,7 @@ export const ProjectTitleCircleBackground = styled.div`
 
 export const ProjectTitleDiv = styled.div<IProjectProps>`
   display: flex;
-  justify-content: ${props => props.isEven ? 'flex-start' : 'flex-end'};
+  justify-content: ${props => props.$iseven ? 'flex-start' : 'flex-end'};
 `
 
 export const ProjectTitleTextDiv = styled.div`
@@ -272,7 +272,7 @@ export const SocialLink = styled.a`
 export const SocialLinkDiv = styled.div<ISocialLinkDivProps>`
   position: fixed;
   bottom: 0;
-  left: ${props => props.screenWidth > 1280 ? `${(props.screenWidth - 1280) / 2 + 16}px` : '16px'}
+  left: ${props => props.screenwidth > 1280 ? `${(props.screenwidth - 1280) / 2 + 16}px` : '16px'}
 `
 
 export const SocialVerticalLine = styled.div`
