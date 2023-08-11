@@ -4,17 +4,53 @@ import logo from '../../assets/logo.svg'
 import { LogoDiv, LogoImg, LogoNav, LogoText, NavLink, NavLinkList } from './navigation-style'
 
 interface INavigationProps {
+  aboutMeSectionRef: React.RefObject<HTMLDivElement> | null;
+  contactSectionRef: React.RefObject<HTMLDivElement> | null;
+  projectsSectionRef: React.RefObject<HTMLDivElement> | null;
   setNavHeight: (e: number) => void;
 }
 
-const MainNavigation = ({setNavHeight}: INavigationProps) => {
+const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, projectsSectionRef, setNavHeight }: INavigationProps) => {
   const navigationHeader = useRef<HTMLElement | null>(null);
+
+  const navigationLinks = [
+    {
+      text: 'About',
+      section: aboutMeSectionRef,
+    },
+    {
+      text: 'Projects',
+      section: contactSectionRef,
+    },
+    {
+      text: 'Contact',
+      section: projectsSectionRef,
+    },
+  ]
 
   useEffect(() => {
     if(navigationHeader.current) {
       setNavHeight(navigationHeader.current.clientHeight)
     }
   }, [])
+
+  const handleLinkClick = (text: string) => {
+    let currentRef = null;
+    switch (text) {
+      case 'About':
+        currentRef = aboutMeSectionRef
+        break;
+      case 'Projects':
+        currentRef = projectsSectionRef
+        break;
+      default:
+        currentRef = contactSectionRef
+    }
+
+    if (currentRef?.current) {
+      currentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
 
   return (
     <header ref={navigationHeader}>
@@ -24,9 +60,11 @@ const MainNavigation = ({setNavHeight}: INavigationProps) => {
           <LogoText>Bare Medium</LogoText>
         </LogoDiv>
         <NavLinkList style={{ listStyleType: 'none' }}>
-          <NavLink>About</NavLink>
-          <NavLink>Projects</NavLink>
-          <NavLink>Contact</NavLink>
+          {
+            navigationLinks.map((link) => (
+              <NavLink onClick={() => handleLinkClick(link.text)}>{link.text}</NavLink>
+            ))
+          }
         </NavLinkList>
       </LogoNav>
     </header>
