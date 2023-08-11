@@ -78,6 +78,7 @@ export const ContactButton = styled.button`
   font-size: 1.2rem;
   color: #FFFFFF;
   width: 20%;
+  min-width: 150px;
   cursor: pointer;
   transition: all 0.5s;
 
@@ -153,6 +154,10 @@ export const ProjectContentDiv = styled.div<IProjectProps>`
   top: 50%;
   transform: translateY(-50%);
   width: 50%;
+
+  @media (max-width: 900px) {
+    width: 70%;
+  }
 `
 
 export const ProjectDescription = styled.p`
@@ -186,7 +191,8 @@ export const ProjectLinksList = styled.div<IProjectProps>`
 
 export const ProjectScreenshotDiv = styled.div<IProjectProps>`
   width: 60%;
-  height: 400px;
+  height: auto;
+  max-height: 400px;
   background-color: ${projectScreenShotBackgroundColor};
   border-radius: 8px;
 `
@@ -200,7 +206,7 @@ export const ProjectSkillList = styled.ul<IProjectProps>`
 export const ProjectSkillListItem = styled.li`
   display: inline-block;
   margin-right: 16px;
-  font-size: 1.125rem;
+  font-size: 1rem;
 
   &:last-of-type {
     margin-right: 0;
@@ -296,6 +302,10 @@ export const Tagline = styled.h4`
 
 export const Title = styled.h1`
   margin: 16px 0;
+
+  @media (max-width: 1068px) {
+    font-size: 3rem;
+  }
 `
 
 export const TitleSecondary = styled.span`

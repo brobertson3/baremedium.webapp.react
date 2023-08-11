@@ -173,12 +173,12 @@ function Home({ aboutMeSectionRef, contactSectionRef, projectsSectionRef, navHei
                 {
                   project.githubLink && (
                     <Styled.ProjectIconLink $isgithub={!!project.githubLink} href={project.githubLink} target='_blank' rel='noopener noreferrer'>
-                      <Styled.CustomFontAwesomeIcon width={26} height={26} icon={faGithub} />
+                      <Styled.CustomFontAwesomeIcon width={22} height={22} icon={faGithub} />
                     </Styled.ProjectIconLink>
                   )
                 }
                 <Styled.ProjectIconLink href={project.link} target='_blank' rel='noopener noreferrer'>
-                  <Styled.CustomFontAwesomeIcon width={24} height={24} icon={faArrowUpRightFromSquare} />
+                  <Styled.CustomFontAwesomeIcon width={20} height={20} icon={faArrowUpRightFromSquare} />
                 </Styled.ProjectIconLink>
               </Styled.ProjectLinksList>
             </Styled.ProjectContentDiv>
