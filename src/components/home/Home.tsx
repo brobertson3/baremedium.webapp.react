@@ -133,15 +133,20 @@ function Home({ aboutMeSectionRef, contactSectionRef, projectsSectionRef, navHei
         </Styled.AboutProfileImageDiv>
         <Styled.AboutBioDiv>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas pretium aenean pharetra magna ac.
-            Elementum pulvinar etiam non quam lacus suspendisse. Dictum fusce ut placerat orci nulla pellentesque. Sit amet luctus venenatis lectus magna fringilla urna porttitor rhoncus.
-            Turpis massa sed elementum tempus egestas sed. Porttitor massa id neque aliquam vestibulum morbi blandit cursus risus. Vitae suscipit tellus mauris a.
-            Nulla malesuada pellentesque elit eget gravida cum sociis natoque.
+            Hi there! My name is Brent and I'm a Software Engineer specializing in Front End Development. I've been exclusively creating things for the web for the past 6 years, but I've been coding in general since 2012.
+            I've worked with a variety of companies and clients, including: startups, small businesses, and government agencies. My motivation for beginning my coding career is the same thing that keeps me going to this day -
+            I just want to create beautiful experiences that make a difference.
           </p>
           <p>
-            At in tellus integer feugiat scelerisque varius. Tincidunt dui ut ornare lectus sit amet est. Velit ut tortor pretium viverra. Suspendisse sed nisi lacus sed viverra tellus in hac habitasse.
-            Pharetra et ultrices neque ornare aenean euismod elementum nisi quis.
+            These days I specialize in: React, JavaScript, TypeScript, HTML5, CSS3, Firebase, Node.js, Express, and Wordpress. Feel free to reach out if you have a project or full-time opportunity.
           </p>
+          <Styled.ContactButtonDiv>
+            <Styled.ContactButton>
+              <Styled.ContactButtonLink href='mailto: baremedium@gmail.com'>
+                Contact Me
+              </Styled.ContactButtonLink>
+            </Styled.ContactButton>
+          </Styled.ContactButtonDiv>
         </Styled.AboutBioDiv>
       </Styled.AboutContainerDiv>
 

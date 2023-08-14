@@ -30,6 +30,10 @@ interface ISocialLinkDivProps {
   screenwidth: number;
 }
 
+export const AboutBioContactLink = styled.a`
+  color: ${Shared.customRed}
+`
+
 export const AboutBioDiv = styled.div`
   width: 100%;
   max-width: 750px;
@@ -168,10 +172,10 @@ export const ProjectIconLink = styled.a<IProjectIconLinkProps>`
 `
 
 export const Main = styled.main`
-  margin: 0 96px 56px;
+  margin: 0 96px 80px;
 
   @media (max-width: 769px) {
-    margin: 0;
+    margin: 0 0 80px;
   }
 `
 

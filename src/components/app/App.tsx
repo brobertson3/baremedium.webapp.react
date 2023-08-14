@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import './App.css'
 import Home from '../home/Home'
 import MainNavigation from '../navigation/MainNavigation'
+import Footer from '../footer/Footer'
 // import * as Styled from './app-style'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         navHeight={navHeight}
         projectsSectionRef={projectsSectionRef}
       />
+      <Footer />
     </>
   )
 }
