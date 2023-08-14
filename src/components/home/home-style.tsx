@@ -42,7 +42,8 @@ export const AboutContainerDiv = styled.div`
 `
 
 export const AboutProfileImage = styled.img`
-  width: 350px;
+  width: 100%;
+  max-width: 256px;
   height: auto;
   position: relative;
   z-index: 100;
@@ -55,8 +56,9 @@ export const AboutProfileImage = styled.img`
 
 export const AboutProfileImageBackgroundDiv = styled.div`
   position: absolute;
-  width: 350px;
-  height: 350px;
+  width: 100%;
+  max-width: 256px;
+  height: 100%;
   border: 2px solid ${Shared.customBlue};
   left: 20px;
   top: 20px;
@@ -138,6 +140,10 @@ export const ProjectIconLink = styled.a<IProjectIconLinkProps>`
 
 export const Main = styled.main`
   margin: 0 96px 56px;
+
+  @media (max-width: 900px) {
+    margin: 0;
+  }
 `
 
 export const ProjectContainerDiv = styled.div<IProjectProps>`
@@ -278,7 +284,11 @@ export const SocialLink = styled.a`
 export const SocialLinkDiv = styled.div<ISocialLinkDivProps>`
   position: fixed;
   bottom: 0;
-  left: ${props => props.screenwidth > 1280 ? `${(props.screenwidth - 1280) / 2 + 16}px` : '16px'}
+  left: ${props => props.screenwidth > 1280 ? `${(props.screenwidth - 1280) / 2 + 16}px` : '16px'};
+
+  @media (max-width: 769px) {
+    display: none;
+  }
 `
 
 export const SocialVerticalLine = styled.div`
@@ -290,7 +300,8 @@ export const SocialVerticalLine = styled.div`
 
 export const Subtitle = styled.p`
   font-size: 1.2rem;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   padding-left: 4px;
 `
 
