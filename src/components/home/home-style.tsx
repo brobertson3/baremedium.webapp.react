@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as Shared from '../shared-style'
 
 const projectScreenShotBackgroundColor = '#508ef1';
+const projectMobileBackgroundColor = '#727983';
 
 interface IFAProps{
   width: number;
@@ -22,7 +23,7 @@ interface IProjectIconLinkProps {
 }
 
 interface IProjectProps {
-  $iseven: boolean;
+  $iseven?: boolean;
 }
 
 interface ISocialLinkDivProps {
@@ -39,6 +40,10 @@ export const AboutContainerDiv = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 80px;
+
+  @media (max-width: 601px) {
+    margin-bottom: 64px;
+  }
 `
 
 export const AboutProfileImage = styled.img`
@@ -48,6 +53,7 @@ export const AboutProfileImage = styled.img`
   position: relative;
   z-index: 100;
   transition: all 0.7s;
+  text-align: center;
 
   &:hover {
     border-radius: 50%;
@@ -60,14 +66,24 @@ export const AboutProfileImageBackgroundDiv = styled.div`
   max-width: 256px;
   height: 100%;
   border: 2px solid ${Shared.customBlue};
-  left: 20px;
-  top: 20px;
+  transform: translateX(-50%);
+  left: calc(50% + 15px);
+  top: 15px;
   transition: all 0.7s;
+
+
+  @media (max-width: 601px) {
+    left: calc(50% + 10px);
+    top: 10px;
+  }
 `
 
 export const AboutProfileImageDiv = styled.div`
   margin-bottom: 32px;
   position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `
 
 export const ContactButton = styled.button`
@@ -93,6 +109,10 @@ export const ContactButtonDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+`
+
+export const ContactButtonLink = styled.a`
+
 `
 
 export const ContactDiv = styled.div`
@@ -123,10 +143,15 @@ export const Header = styled.header<IHeaderProps>`
 `
 
 export const HeadingUnderline = styled.div`
-  width: 30%;
+  width: 35%;
+  min-width: 250px;
   height: 0.5px;
   background-color: #FFFFFF;
   margin-bottom: 56px;
+
+  @media (max-width: 601px) {
+    margin-bottom: 36px;
+  }
 `
 
 export const ProjectIconLink = styled.a<IProjectIconLinkProps>`
@@ -136,12 +161,16 @@ export const ProjectIconLink = styled.a<IProjectIconLinkProps>`
   &:hover {
     color: ${Shared.customBlue};
   }
+
+  @media (max-width: 601px) {
+    margin-right: ${props => props.$isgithub ? '18px' : '0'};
+  }
 `
 
 export const Main = styled.main`
   margin: 0 96px 56px;
 
-  @media (max-width: 900px) {
+  @media (max-width: 769px) {
     margin: 0;
   }
 `
@@ -151,6 +180,14 @@ export const ProjectContainerDiv = styled.div<IProjectProps>`
   margin-bottom: 96px;
   display: ${props => props.$iseven ? 'flex' : 'block'};
   justify-content: flex-end;
+
+  &:last-of-type {
+    margin-bottom: 80px;
+  }
+
+  @media (max-width: 981px) {
+    margin-bottom: 144px;
+  }
 `
 
 export const ProjectContentDiv = styled.div<IProjectProps>`
@@ -175,9 +212,16 @@ export const ProjectDescriptionDiv = styled.div`
   background-color: #424952;
   padding: 24px;
   border-radius: 8px;
+
+  @media (max-width: 601px) {
+    padding-top: 32px;
+    margin-top: -12px;
+    z-index: 10;
+  }
 `
 
 export const ProjectImg = styled.img`
+  display: block;
   height: 100%;
   width: 100%;
   border-radius: 8px;
@@ -207,6 +251,11 @@ export const ProjectSkillList = styled.ul<IProjectProps>`
   list-style-type: none;
   padding: 0;
   text-align: ${props => props.$iseven ? 'left' : 'right'};
+
+  @media (max-width: 601px) {
+   width: 100%;
+   text-align: center;
+  }
 `
 
 export const ProjectSkillListItem = styled.li`
@@ -217,16 +266,15 @@ export const ProjectSkillListItem = styled.li`
   &:last-of-type {
     margin-right: 0;
   }
+
+  @media (max-width: 601px) {
+    margin-right: 24px;
+  }
 `
 
 export const ProjectTitle = styled.h3`
   text-align: right;
   padding: 9px 0;
-`
-
-export const ProjectTitleLink = styled.a`
-  text-decoration: none;
-  color: inherit;
 `
 
 export const ProjectTitleCircleBackground = styled.div`
@@ -243,12 +291,50 @@ export const ProjectTitleCircleBackground = styled.div`
 export const ProjectTitleDiv = styled.div<IProjectProps>`
   display: flex;
   justify-content: ${props => props.$iseven ? 'flex-start' : 'flex-end'};
+
+  @media (max-width: 601px) {
+    justify-content: center;
+  }
+`
+
+export const ProjectTitleLink = styled.a`
+  text-decoration: none;
+  color: inherit;
 `
 
 export const ProjectTitleTextDiv = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+
+  @media (max-width: 601px) {
+    z-index: 100;
+  }
+`
+
+export const ProjectMobileContainerDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 52px;
+  background-color: ${projectMobileBackgroundColor};
+  padding: 24px;
+  border-radius: 8px;
+`
+
+export const ProjectMobileScreenshotDiv = styled.div`
+  width: 90%;
+  margin-top: 16px;
+
+  @media (max-width: 601px) {
+    z-index: 20;
+  }
+`
+
+export const ProjectMobileImg = styled.img`
+  height: 100%;
+  width: 100%;
+  border-radius: 8px; 
 `
 
 export const SecondaryTitleSpan = styled.span`
@@ -303,12 +389,20 @@ export const Subtitle = styled.p`
   width: 100%;
   max-width: 500px;
   padding-left: 4px;
+
+  @media (max-width: 601px) {
+    font-size: 1.1rem;
+  }
 `
 
 export const Tagline = styled.h4`
   font-weight: 500;
   margin: 0 0 16px;
   padding-left: 4px;
+
+  @media (max-width: 601px) {
+    font-size: 1.1rem;
+  }
 `
 
 export const Title = styled.h1`
@@ -316,6 +410,10 @@ export const Title = styled.h1`
 
   @media (max-width: 1068px) {
     font-size: 3rem;
+  }
+
+  @media (max-width: 601px) {
+    font-size: 2.2rem;
   }
 `
 

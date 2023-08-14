@@ -1,6 +1,14 @@
 import styled from 'styled-components'
 import * as Shared from '../shared-style'
 
+interface IMenuButtonProps {
+  $isclose: boolean;
+}
+
+interface IMenuListProps {
+  $mobilemenushow: boolean;
+}
+
 export const LogoDiv = styled.div`
   display: flex;
   align-items: center;
@@ -20,13 +28,6 @@ export const LogoText = styled.h3`
   display: inline-block;
   margin: 0 16px;
 `
-interface IMenuButtonProps {
-  $isclose: boolean;
-}
-
-interface IMenuListProps {
-  $mobilemenushow: boolean;
-}
 
 export const MobileMenuButton = styled.div<IMenuButtonProps>`
   width: 24px;

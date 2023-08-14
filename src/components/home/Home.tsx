@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import * as Styled from './home-style'
 import useScreenSize from '../../hooks/useScreenSize'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
@@ -19,6 +19,11 @@ interface IHomeProps {
 function Home({ aboutMeSectionRef, contactSectionRef, projectsSectionRef, navHeight }: IHomeProps) {
   const profileImageBackgroundRef = useRef<HTMLDivElement | null>(null);
   const screenSize = useScreenSize();
+
+  const checkIsMobile = () => screenSize.width <= 600
+
+  const [isMobile, setIsMobile] = useState(checkIsMobile())
+
   const socialLinks = [
     {
       link: 'https://github.com/brobertson3',
@@ -87,6 +92,10 @@ function Home({ aboutMeSectionRef, contactSectionRef, projectsSectionRef, navHei
     }
   }
 
+  useEffect(() => {
+    setIsMobile(checkIsMobile())
+  }, [screenSize.width])
+
   return (
     <Styled.Main>
       <Styled.SocialLinkDiv screenwidth={screenSize.width}>
@@ -136,55 +145,106 @@ function Home({ aboutMeSectionRef, contactSectionRef, projectsSectionRef, navHei
         </Styled.AboutBioDiv>
       </Styled.AboutContainerDiv>
 
-      <Styled.SectionHeaderDiv alignment='left' ref={projectsSectionRef}>
-        <Styled.SectionHeaderTitle alignment='left'>Projects</Styled.SectionHeaderTitle>
+      <Styled.SectionHeaderDiv alignment={isMobile ? 'center' : 'left'} ref={projectsSectionRef}>
+        <Styled.SectionHeaderTitle alignment={isMobile ? 'center' : 'left'}>Projects</Styled.SectionHeaderTitle>
         <Styled.HeadingUnderline />
       </Styled.SectionHeaderDiv>
-      {
-        projects.map((project, index) => (
-          <Styled.ProjectContainerDiv key={`projectContainer${index}`} $iseven={(index + 1) % 2 === 0}>
-            <Styled.ProjectScreenshotDiv $iseven={(index + 1) % 2 === 0}>
-              <a href={project.link} target='_blank' rel='noopener noreferrer'>
-                <Styled.ProjectImg src={project.screenshot} alt={project.altText} />
-              </a>
-            </Styled.ProjectScreenshotDiv>
-            <Styled.ProjectContentDiv $iseven={(index + 1) % 2 === 0}>
-              <Styled.ProjectTitleDiv $iseven={(index + 1) % 2 === 0}>
-                <Styled.ProjectTitleTextDiv>
-                  <Styled.ProjectTitleLink href={project.link}>
-                    <Styled.ProjectTitle>{project.title}</Styled.ProjectTitle>
-                  </Styled.ProjectTitleLink>
-                  <Styled.ProjectTitleCircleBackground />
-                </Styled.ProjectTitleTextDiv>
-              </Styled.ProjectTitleDiv>
-              <Styled.ProjectDescriptionDiv>
-                <Styled.ProjectDescription>
-                  {project.description}
-                </Styled.ProjectDescription>
-              </Styled.ProjectDescriptionDiv>
-              <Styled.ProjectSkillList $iseven={(index + 1) % 2 === 0}>
-                {
-                  project.skills.map((skill, index) => (
-                    <Styled.ProjectSkillListItem key={`projectSkill${index}`}>{skill}</Styled.ProjectSkillListItem>
-                  ))
-                }
-              </Styled.ProjectSkillList>
-              <Styled.ProjectLinksList $iseven={(index + 1) % 2 === 0}>
-                {
-                  project.githubLink && (
-                    <Styled.ProjectIconLink $isgithub={!!project.githubLink} href={project.githubLink} target='_blank' rel='noopener noreferrer'>
-                      <Styled.CustomFontAwesomeIcon width={22} height={22} icon={faGithub} />
-                    </Styled.ProjectIconLink>
-                  )
-                }
-                <Styled.ProjectIconLink href={project.link} target='_blank' rel='noopener noreferrer'>
-                  <Styled.CustomFontAwesomeIcon width={20} height={20} icon={faArrowUpRightFromSquare} />
-                </Styled.ProjectIconLink>
-              </Styled.ProjectLinksList>
-            </Styled.ProjectContentDiv>
-          </Styled.ProjectContainerDiv>
-        ))
-      }
+      <>
+        {
+          projects.map((project, index) => (
+            <>
+              {
+                !isMobile && (
+                  <Styled.ProjectContainerDiv key={`projectContainer${index}`} $iseven={(index + 1) % 2 === 0}>
+                    <Styled.ProjectScreenshotDiv $iseven={(index + 1) % 2 === 0}>
+                      <a href={project.link} target='_blank' rel='noopener noreferrer'>
+                        <Styled.ProjectImg src={project.screenshot} alt={project.altText} />
+                      </a>
+                    </Styled.ProjectScreenshotDiv>
+                    <Styled.ProjectContentDiv $iseven={(index + 1) % 2 === 0}>
+                      <Styled.ProjectTitleDiv $iseven={(index + 1) % 2 === 0}>
+                        <Styled.ProjectTitleTextDiv>
+                          <Styled.ProjectTitleLink href={project.link}>
+                            <Styled.ProjectTitle>{project.title}</Styled.ProjectTitle>
+                          </Styled.ProjectTitleLink>
+                          <Styled.ProjectTitleCircleBackground />
+                        </Styled.ProjectTitleTextDiv>
+                      </Styled.ProjectTitleDiv>
+                      <Styled.ProjectDescriptionDiv>
+                        <Styled.ProjectDescription>
+                          {project.description}
+                        </Styled.ProjectDescription>
+                      </Styled.ProjectDescriptionDiv>
+                      <Styled.ProjectSkillList $iseven={(index + 1) % 2 === 0}>
+                        {
+                          project.skills.map((skill, index) => (
+                            <Styled.ProjectSkillListItem key={`projectSkill${index}`}>{skill}</Styled.ProjectSkillListItem>
+                          ))
+                        }
+                      </Styled.ProjectSkillList>
+                      <Styled.ProjectLinksList $iseven={(index + 1) % 2 === 0}>
+                        {
+                          project.githubLink && (
+                            <Styled.ProjectIconLink $isgithub={!!project.githubLink} href={project.githubLink} target='_blank' rel='noopener noreferrer'>
+                              <Styled.CustomFontAwesomeIcon width={22} height={22} icon={faGithub} />
+                            </Styled.ProjectIconLink>
+                          )
+                        }
+                        <Styled.ProjectIconLink href={project.link} target='_blank' rel='noopener noreferrer'>
+                          <Styled.CustomFontAwesomeIcon width={20} height={20} icon={faArrowUpRightFromSquare} />
+                        </Styled.ProjectIconLink>
+                      </Styled.ProjectLinksList>
+                    </Styled.ProjectContentDiv>
+                  </Styled.ProjectContainerDiv>
+                )
+              }
+              {
+                isMobile && (
+                 <Styled.ProjectMobileContainerDiv>
+                   <Styled.ProjectTitleDiv>
+                      <Styled.ProjectTitleTextDiv>
+                        <Styled.ProjectTitleLink href={project.link}>
+                          <Styled.ProjectTitle>{project.title}</Styled.ProjectTitle>
+                        </Styled.ProjectTitleLink>
+                        <Styled.ProjectTitleCircleBackground />
+                      </Styled.ProjectTitleTextDiv>
+                    </Styled.ProjectTitleDiv>
+                   <Styled.ProjectMobileScreenshotDiv>
+                    <a href={project.link} target='_blank' rel='noopener noreferrer'>
+                      <Styled.ProjectMobileImg src={project.screenshot} alt={project.altText} />
+                    </a>
+                   </Styled.ProjectMobileScreenshotDiv>
+                   <Styled.ProjectDescriptionDiv>
+                      <Styled.ProjectDescription>
+                        {project.description}
+                      </Styled.ProjectDescription>
+                    </Styled.ProjectDescriptionDiv>
+                    <Styled.ProjectSkillList $iseven={(index + 1) % 2 === 0}>
+                      {
+                        project.skills.map((skill, index) => (
+                          <Styled.ProjectSkillListItem key={`projectSkill${index}`}>{skill}</Styled.ProjectSkillListItem>
+                        ))
+                      }
+                    </Styled.ProjectSkillList>
+                    <Styled.ProjectLinksList $iseven={(index + 1) % 2 === 0}>
+                      {
+                        project.githubLink && (
+                          <Styled.ProjectIconLink $isgithub={!!project.githubLink} href={project.githubLink} target='_blank' rel='noopener noreferrer'>
+                            <Styled.CustomFontAwesomeIcon width={22} height={22} icon={faGithub} />
+                          </Styled.ProjectIconLink>
+                        )
+                      }
+                      <Styled.ProjectIconLink href={project.link} target='_blank' rel='noopener noreferrer'>
+                        <Styled.CustomFontAwesomeIcon width={20} height={20} icon={faArrowUpRightFromSquare} />
+                      </Styled.ProjectIconLink>
+                    </Styled.ProjectLinksList>
+                 </Styled.ProjectMobileContainerDiv>
+                )
+              }
+            </>
+          ))
+        }
+      </>
       
       <Styled.SectionHeaderDiv alignment='center' ref={contactSectionRef}>
         <Styled.SectionHeaderTitle alignment='center'>Get In Touch</Styled.SectionHeaderTitle>
@@ -193,7 +253,11 @@ function Home({ aboutMeSectionRef, contactSectionRef, projectsSectionRef, navHei
       <Styled.ContactDiv>
         <Styled.ContactText>I'm currently open to discussing full-time, contract, or freelance opportunities. You can reach me at baremedium@gmail.com.</Styled.ContactText>
         <Styled.ContactButtonDiv>
-          <Styled.ContactButton>Contact Me</Styled.ContactButton>
+          <Styled.ContactButton>
+            <Styled.ContactButtonLink href='mailto: baremedium@gmail.com'>
+              Contact Me
+            </Styled.ContactButtonLink>
+          </Styled.ContactButton>
         </Styled.ContactButtonDiv>
       </Styled.ContactDiv>
     </Styled.Main>
