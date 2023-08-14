@@ -321,9 +321,9 @@ export const ProjectMobileContainerDiv = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 52px;
-  background-color: ${projectMobileBackgroundColor};
   padding: 24px;
   border-radius: 8px;
+  border: solid 2px ${Shared.customBlue};
 `
 
 export const ProjectMobileScreenshotDiv = styled.div`
