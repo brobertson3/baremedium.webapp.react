@@ -82,7 +82,7 @@ export const MobileMenuList = styled.ul<IMenuListProps>`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  right:  ${props => props.$mobilemenushow ? '0' : '-100vw'};
+  right: ${props => props.$mobilemenushow ? '0' : '-100vw'};
   top: 0;
   transition: all 0.5s;
   background-color: #424952;

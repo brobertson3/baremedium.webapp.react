@@ -75,16 +75,16 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, 
         {
           isMobile && (
             <>
-            {
-              <Styled.MobileOverlay $showoverlay={mobileMenuShow} />
-            }
-            <Styled.MobileMenuDiv>
-              <Styled.MobileMenuButton onClick={handleMobileMenuClick} $isclose={mobileMenuShow}>
-                <Styled.MobileMenuButtonLine $isclose={mobileMenuShow}/>
-                <Styled.MobileMenuButtonLine $isclose={mobileMenuShow}/>
-                <Styled.MobileMenuButtonLine $isclose={mobileMenuShow}/>
-              </Styled.MobileMenuButton>
               {
+                <Styled.MobileOverlay $showoverlay={mobileMenuShow} />
+              }
+              <Styled.MobileMenuDiv>
+                <Styled.MobileMenuButton onClick={handleMobileMenuClick} $isclose={mobileMenuShow}>
+                  <Styled.MobileMenuButtonLine $isclose={mobileMenuShow}/>
+                  <Styled.MobileMenuButtonLine $isclose={mobileMenuShow}/>
+                  <Styled.MobileMenuButtonLine $isclose={mobileMenuShow}/>
+                </Styled.MobileMenuButton>
+
                 <Styled.MobileMenuList $mobilemenushow={mobileMenuShow}>
                   <Styled.MobileMenuListDiv>
                     {
@@ -100,8 +100,7 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, 
                     }
                   </Styled.MobileMenuListDiv>
                 </Styled.MobileMenuList>
-              }
-            </Styled.MobileMenuDiv>
+              </Styled.MobileMenuDiv>
             </>
           )
         }
