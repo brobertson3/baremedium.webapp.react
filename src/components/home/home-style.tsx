@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as Shared from '../shared-style'
 
 const projectScreenShotBackgroundColor = '#508ef1';
-const projectMobileBackgroundColor = '#727983';
 
 interface IFAProps{
   width: number;

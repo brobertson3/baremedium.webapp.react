@@ -12,11 +12,11 @@ import ProfileImage from '../../assets/baremedium-headshot.jpg'
 interface IHomeProps {
   aboutMeSectionRef: React.RefObject<HTMLDivElement> | null;
   contactSectionRef: React.RefObject<HTMLDivElement> | null;
-  projectsSectionRef: React.RefObject<HTMLDivElement> | null;
   navHeight: number;
+  projectsSectionRef: React.RefObject<HTMLDivElement> | null;
 }
 
-function Home({ aboutMeSectionRef, contactSectionRef, projectsSectionRef, navHeight }: IHomeProps) {
+function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSectionRef }: IHomeProps) {
   const profileImageBackgroundRef = useRef<HTMLDivElement | null>(null);
   const screenSize = useScreenSize();
 

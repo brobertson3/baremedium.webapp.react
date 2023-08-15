@@ -7,16 +7,18 @@ import * as Styled from './navigation-style'
 interface INavigationProps {
   aboutMeSectionRef: React.RefObject<HTMLDivElement> | null;
   contactSectionRef: React.RefObject<HTMLDivElement> | null;
+  mobileMenuShow: boolean;
   projectsSectionRef: React.RefObject<HTMLDivElement> | null;
+  handleLinkClick: (e: string) => void;
+  setMobileMenuShow: (e: boolean) => void;
   setNavHeight: (e: number) => void;
+  setNoScroll: (e: boolean) => void;
 }
 
-const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, projectsSectionRef, setNavHeight }: INavigationProps) => {
+const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, projectsSectionRef, handleLinkClick, setMobileMenuShow, setNavHeight, setNoScroll }: INavigationProps) => {
   const navigationHeader = useRef<HTMLElement | null>(null);
   const screenSize = useScreenSize();
   const [isMobile, setIsMobile] = useState(false)
-  const [mobileMenuShow, setMobileMenuShow] = useState(false)
-  const [isMobileMenuClose, setIsMobileMenuClose] = useState(false)
 
   const navigationLinks = [
     {
@@ -47,27 +49,9 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, projectsSectionR
     }
   }, [screenSize])
 
-  const handleLinkClick = (text: string) => {
-    let currentRef = null;
-    switch (text) {
-      case 'About':
-        currentRef = aboutMeSectionRef
-        break;
-      case 'Projects':
-        currentRef = projectsSectionRef
-        break;
-      default:
-        currentRef = contactSectionRef
-    }
-
-    if (currentRef?.current) {
-      currentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
-  }
-
   const handleMobileMenuClick = () => {
     setMobileMenuShow(!mobileMenuShow)
-    setIsMobileMenuClose(!mobileMenuShow)
+    setNoScroll(!mobileMenuShow)
   }
 
   return (
@@ -90,26 +74,33 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, projectsSectionR
         }
         {
           isMobile && (
+            <>
+            {
+              <Styled.MobileOverlay $showoverlay={mobileMenuShow} />
+            }
             <Styled.MobileMenuDiv>
-              <Styled.MobileMenuButton onClick={handleMobileMenuClick} $isclose={isMobileMenuClose}>
-                <Styled.MobileMenuButtonLine $isclose={isMobileMenuClose}/>
-                <Styled.MobileMenuButtonLine $isclose={isMobileMenuClose}/>
-                <Styled.MobileMenuButtonLine $isclose={isMobileMenuClose}/>
+              <Styled.MobileMenuButton onClick={handleMobileMenuClick} $isclose={mobileMenuShow}>
+                <Styled.MobileMenuButtonLine $isclose={mobileMenuShow}/>
+                <Styled.MobileMenuButtonLine $isclose={mobileMenuShow}/>
+                <Styled.MobileMenuButtonLine $isclose={mobileMenuShow}/>
               </Styled.MobileMenuButton>
-              <Styled.MobileMenuList $mobilemenushow={isMobileMenuClose}>
-                {
-                  navigationLinks.map((mobileLink, index) => (
-                    <Styled.MobileMenuListItem
-                      key={`mobileNavigationLink${index}`}
-                      onClick={() => handleLinkClick(mobileLink.text)}
-                      $mobilemenushow={isMobileMenuClose}
-                    >
-                      {mobileLink.text}
-                    </Styled.MobileMenuListItem>
-                  ))
-                }
-              </Styled.MobileMenuList>
+              {
+                <Styled.MobileMenuList $mobilemenushow={mobileMenuShow}>
+                  {
+                    navigationLinks.map((mobileLink, index) => (
+                      <Styled.MobileMenuListItem
+                        key={`mobileNavigationLink${index}`}
+                        onClick={() => handleLinkClick(mobileLink.text)}
+                        $mobilemenushow={mobileMenuShow}
+                      >
+                        {mobileLink.text}
+                      </Styled.MobileMenuListItem>
+                    ))
+                  }
+                </Styled.MobileMenuList>
+              }
             </Styled.MobileMenuDiv>
+            </>
           )
         }
       </Styled.LogoNav>
