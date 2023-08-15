@@ -78,7 +78,10 @@ export const MobileMenuDiv = styled.div`
 
 export const MobileMenuList = styled.ul<IMenuListProps>`
   position: absolute;
-  padding: 100px 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   right:  ${props => props.$mobilemenushow ? '0' : '-100vw'};
   top: 0;
   transition: all 0.5s;
@@ -90,6 +93,10 @@ export const MobileMenuList = styled.ul<IMenuListProps>`
   opacity: 1;
   margin-top: 0;
   transition: all 0.7s ease-in-out;
+`
+
+export const MobileMenuListDiv = styled.div`
+  width: 100%;
 `
 
 export const MobileMenuListItem = styled.li<IMenuListProps>`

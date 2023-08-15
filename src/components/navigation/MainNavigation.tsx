@@ -86,17 +86,19 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, 
               </Styled.MobileMenuButton>
               {
                 <Styled.MobileMenuList $mobilemenushow={mobileMenuShow}>
-                  {
-                    navigationLinks.map((mobileLink, index) => (
-                      <Styled.MobileMenuListItem
-                        key={`mobileNavigationLink${index}`}
-                        onClick={() => handleLinkClick(mobileLink.text)}
-                        $mobilemenushow={mobileMenuShow}
-                      >
-                        {mobileLink.text}
-                      </Styled.MobileMenuListItem>
-                    ))
-                  }
+                  <Styled.MobileMenuListDiv>
+                    {
+                      navigationLinks.map((mobileLink, index) => (
+                        <Styled.MobileMenuListItem
+                          key={`mobileNavigationLink${index}`}
+                          onClick={() => handleLinkClick(mobileLink.text)}
+                          $mobilemenushow={mobileMenuShow}
+                        >
+                          {mobileLink.text}
+                        </Styled.MobileMenuListItem>
+                      ))
+                    }
+                  </Styled.MobileMenuListDiv>
                 </Styled.MobileMenuList>
               }
             </Styled.MobileMenuDiv>
