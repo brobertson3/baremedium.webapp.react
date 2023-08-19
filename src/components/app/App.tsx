@@ -4,6 +4,7 @@ import Home from '../home/Home'
 import MainNavigation from '../navigation/MainNavigation'
 import Footer from '../footer/Footer'
 import * as Styled from './app-style'
+import useScreenSize from '../../hooks/useScreenSize'
 
 function App() {
   const [navHeight, setNavHeight] = useState(0);
@@ -13,6 +14,8 @@ function App() {
   const contactSectionRef = useRef<HTMLDivElement | null>(null);
   const mainDivRef = useRef<HTMLDivElement | null>(null);
   const projectsSectionRef = useRef<HTMLDivElement | null>(null);
+
+  const screenSize = useScreenSize();
 
   const handleLinkClick = (text: string) => {
     let currentRef = null;
@@ -40,7 +43,7 @@ function App() {
   }
 
   return (
-    <Styled.MainDiv ref={mainDivRef} $noscroll={noScroll}>
+    <Styled.MainDiv ref={mainDivRef} $noscroll={noScroll} style={{ display: 'flex', flexDirection: 'column', minHeight: `${screenSize.height}px`}}>
       <MainNavigation
         aboutMeSectionRef={aboutMeSectionRef}
         contactSectionRef={contactSectionRef}
@@ -51,12 +54,14 @@ function App() {
         setNavHeight={setNavHeight}
         setNoScroll={setNoScroll}
       />
-      <Home
-        aboutMeSectionRef={aboutMeSectionRef}
-        contactSectionRef={contactSectionRef}
-        navHeight={navHeight}
-        projectsSectionRef={projectsSectionRef}
-      />
+        <div style={{ flex: '1' }}>
+          <Home
+            aboutMeSectionRef={aboutMeSectionRef}
+            contactSectionRef={contactSectionRef}
+            navHeight={navHeight}
+            projectsSectionRef={projectsSectionRef}
+          />
+        </div>
       <Footer />
     </Styled.MainDiv>
   )

@@ -36,10 +36,13 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, 
   ]
 
   useEffect(() => {
-    if (navigationHeader.current) {
+    if (!navigationHeader?.current) {
+      return
+    }
+    if (navigationHeader?.current) {
       setNavHeight(navigationHeader.current.clientHeight)
     }
-  }, [])
+  }, [navigationHeader?.current?.clientHeight])
 
   useEffect(() => {
     if (screenSize.width <= 600) {
@@ -85,7 +88,7 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, 
                   <Styled.MobileMenuButtonLine $isclose={mobileMenuShow}/>
                 </Styled.MobileMenuButton>
 
-                <Styled.MobileMenuList $mobilemenushow={mobileMenuShow}>
+                <Styled.MobileMenuList $mobilemenushow={mobileMenuShow} style={{ minHeight: `${screenSize.height}px` }}>
                   <Styled.MobileMenuListDiv>
                     {
                       navigationLinks.map((mobileLink, index) => (

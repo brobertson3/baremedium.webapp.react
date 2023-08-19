@@ -87,7 +87,6 @@ export const MobileMenuList = styled.ul<IMenuListProps>`
   transition: all 0.5s;
   background-color: #424952;
   background-color: #000000;
-  height: 100vh;
   width: 60vw;
   min-width: 280px;
   opacity: 1;
@@ -111,7 +110,7 @@ export const MobileMenuListItem = styled.li<IMenuListProps>`
     background-color: ${Shared.customBlue};
   }
 
-  @media (max-width: 461px) {
+  @media (max-width: 460px) {
     font-size: 3rem;
   }
 `

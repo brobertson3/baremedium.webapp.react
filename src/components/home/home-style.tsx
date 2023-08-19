@@ -26,7 +26,7 @@ interface IProjectProps {
 }
 
 interface ISocialLinkDivProps {
-  screenwidth: number;
+  $screenwidth: number;
 }
 
 export const AboutBioContactLink = styled.a`
@@ -44,7 +44,7 @@ export const AboutContainerDiv = styled.div`
   flex-wrap: wrap;
   margin-bottom: 80px;
 
-  @media (max-width: 601px) {
+  @media (max-width: 600px) {
     margin-bottom: 64px;
   }
 `
@@ -75,7 +75,7 @@ export const AboutProfileImageBackgroundDiv = styled.div`
   transition: all 0.7s;
 
 
-  @media (max-width: 601px) {
+  @media (max-width: 600px) {
     left: calc(50% + 10px);
     top: 10px;
   }
@@ -140,9 +140,16 @@ export const Header = styled.header<IHeaderProps>`
   margin: 0;
   width: 100%;
   display: flex;
+  text-align: left;
   flex-wrap: wrap;
   align-items: center;
   height: ${props => props.height}px;
+
+  @media (max-width: 768px) {
+    height: auto;
+    margin: 80px 0;
+    text-align: center;
+  }
 `
 
 export const HeadingUnderline = styled.div`
@@ -152,7 +159,7 @@ export const HeadingUnderline = styled.div`
   background-color: #FFFFFF;
   margin-bottom: 56px;
 
-  @media (max-width: 601px) {
+  @media (max-width: 600px) {
     margin-bottom: 36px;
   }
 `
@@ -165,7 +172,7 @@ export const ProjectIconLink = styled.a<IProjectIconLinkProps>`
     color: ${Shared.customBlue};
   }
 
-  @media (max-width: 601px) {
+  @media (max-width: 600px) {
     margin-right: ${props => props.$isgithub ? '18px' : '0'};
   }
 `
@@ -173,7 +180,7 @@ export const ProjectIconLink = styled.a<IProjectIconLinkProps>`
 export const Main = styled.main`
   margin: 0 96px 80px;
 
-  @media (max-width: 769px) {
+  @media (max-width: 768px) {
     margin: 0 0 80px;
   }
 `
@@ -188,7 +195,7 @@ export const ProjectContainerDiv = styled.div<IProjectProps>`
     margin-bottom: 80px;
   }
 
-  @media (max-width: 981px) {
+  @media (max-width: 980px) {
     margin-bottom: 144px;
   }
 `
@@ -216,7 +223,7 @@ export const ProjectDescriptionDiv = styled.div`
   padding: 24px;
   border-radius: 8px;
 
-  @media (max-width: 601px) {
+  @media (max-width: 600px) {
     padding-top: 32px;
     margin-top: -12px;
     z-index: 10;
@@ -255,7 +262,7 @@ export const ProjectSkillList = styled.ul<IProjectProps>`
   padding: 0;
   text-align: ${props => props.$iseven ? 'left' : 'right'};
 
-  @media (max-width: 601px) {
+  @media (max-width: 600px) {
    width: 100%;
    text-align: center;
   }
@@ -270,7 +277,7 @@ export const ProjectSkillListItem = styled.li`
     margin-right: 0;
   }
 
-  @media (max-width: 601px) {
+  @media (max-width: 600px) {
     margin-right: 24px;
   }
 `
@@ -295,7 +302,7 @@ export const ProjectTitleDiv = styled.div<IProjectProps>`
   display: flex;
   justify-content: ${props => props.$iseven ? 'flex-start' : 'flex-end'};
 
-  @media (max-width: 601px) {
+  @media (max-width: 600px) {
     justify-content: center;
   }
 `
@@ -310,7 +317,7 @@ export const ProjectTitleTextDiv = styled.div`
   align-items: center;
   position: relative;
 
-  @media (max-width: 601px) {
+  @media (max-width: 600px) {
     z-index: 100;
   }
 `
@@ -329,7 +336,7 @@ export const ProjectMobileScreenshotDiv = styled.div`
   width: 90%;
   margin-top: 16px;
 
-  @media (max-width: 601px) {
+  @media (max-width: 600px) {
     z-index: 20;
   }
 `
@@ -373,9 +380,9 @@ export const SocialLink = styled.a`
 export const SocialLinkDiv = styled.div<ISocialLinkDivProps>`
   position: fixed;
   bottom: 0;
-  left: ${props => props.screenwidth > 1280 ? `${(props.screenwidth - 1280) / 2 + 16}px` : '16px'};
+  left: ${props => props.$screenwidth > 1280 ? `${(props.$screenwidth - 1280) / 2 + 32}px` : '32px'};
 
-  @media (max-width: 769px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `
@@ -393,7 +400,12 @@ export const Subtitle = styled.p`
   max-width: 500px;
   padding-left: 4px;
 
-  @media (max-width: 601px) {
+  @media (max-width: 768px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (max-width: 600px) {
     font-size: 1.1rem;
   }
 `
@@ -403,7 +415,7 @@ export const Tagline = styled.h4`
   margin: 0 0 16px;
   padding-left: 4px;
 
-  @media (max-width: 601px) {
+  @media (max-width: 600px) {
     font-size: 1.1rem;
   }
 `
@@ -415,7 +427,7 @@ export const Title = styled.h1`
     font-size: 3rem;
   }
 
-  @media (max-width: 601px) {
+  @media (max-width: 600px) {
     font-size: 2.2rem;
   }
 `

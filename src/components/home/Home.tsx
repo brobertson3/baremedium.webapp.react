@@ -98,7 +98,7 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
 
   return (
     <Styled.Main>
-      <Styled.SocialLinkDiv screenwidth={screenSize.width}>
+      <Styled.SocialLinkDiv $screenwidth={screenSize.width}>
         {
           socialLinks.map((socialLink, index) => (
             <Styled.SocialLink key={`socialLink${index}`} href={socialLink.link} target='_blank' rel='noopener'>
