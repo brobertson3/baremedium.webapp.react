@@ -18,7 +18,43 @@ interface IHomeProps {
 
 function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSectionRef }: IHomeProps) {
   const profileImageBackgroundRef = useRef<HTMLDivElement | null>(null);
+  const intersectionHeaderRef = useRef<HTMLElement | null>(null);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const screenSize = useScreenSize();
+  const intersectionOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.5,
+  };
+  
+  const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        if (entry.target === intersectionHeaderRef.current) {
+          setIsHeaderVisible(true);
+        }
+      }
+    })
+    // if (entries[0].isIntersecting) {
+      
+    //   // Not possible to set it back to false like this:
+    //   setIsHeaderVisible(true);
+      
+    //   // No need to keep observing:
+    //   // observer.unobserve(intersectionHeaderRef.current);
+    // }
+  }
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(intersectionCallback, intersectionOptions);
+    if (intersectionHeaderRef.current) {
+      observer.observe(intersectionHeaderRef.current);
+    }
+    
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
 
   const checkIsMobile = () => screenSize.width <= 600
 
@@ -101,7 +137,13 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
       <Styled.SocialLinkDiv $screenwidth={screenSize.width}>
         {
           socialLinks.map((socialLink, index) => (
-            <Styled.SocialLink key={`socialLink${index}`} href={socialLink.link} target='_blank' rel='noopener'>
+            <Styled.SocialLink
+              key={`socialLink${index}`}
+              href={socialLink.link}
+              target='_blank'
+              rel='noopener'
+              $delay={0.8 - (0.2 * index)}
+            >
               <Styled.CustomFontAwesomeIcon width={30} height={30} icon={socialLink.icon as IconProp} />
             </Styled.SocialLink>
           ))
@@ -109,16 +151,16 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
         <Styled.SocialVerticalLine />
       </Styled.SocialLinkDiv>
 
-      <Styled.Header height={window.innerHeight - navHeight - 16}>
+      <Styled.Header ref={intersectionHeaderRef} height={window.innerHeight - navHeight - 16} $isvisible={isHeaderVisible}>
         <div>
-          <Styled.Tagline>Hey there. My name is</Styled.Tagline>
-          <Styled.Title>
+          <Styled.Tagline $isvisible={isHeaderVisible}>Hey there. My name is</Styled.Tagline>
+          <Styled.Title $isvisible={isHeaderVisible}>
             Brent Robertson.<br />
             <Styled.TitleSecondary>I'm a </Styled.TitleSecondary>
             <Styled.SecondaryTitleSpan>Front End Engineer</Styled.SecondaryTitleSpan>
             <Styled.TitleSecondary> based in Southern California.</Styled.TitleSecondary>
           </Styled.Title>
-          <Styled.Subtitle>I create digital experiences for the web. I specialize in web development with React, TypeScript, JavaScript, Node.js, Express, and Firebase.</Styled.Subtitle>
+          <Styled.Subtitle $isvisible={isHeaderVisible}>I create digital experiences for the web. I specialize in web development with React, TypeScript, JavaScript, Node.js, Express, and Firebase.</Styled.Subtitle>
         </div>
       </Styled.Header>
 

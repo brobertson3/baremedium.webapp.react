@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import { css, styled, keyframes} from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as Shared from '../shared-style'
 
@@ -9,12 +9,13 @@ interface IFAProps{
   height: number;
 }
 
-interface ISectionHeaderProps {
-  alignment: string;
+interface IHeaderElementProps {
+  $isvisible: boolean;
 }
 
 interface IHeaderProps {
   height: number;
+  $isvisible: boolean;
 }
 
 interface IProjectIconLinkProps {
@@ -25,10 +26,37 @@ interface IProjectProps {
   $iseven?: boolean;
 }
 
-interface ISocialLinkDivProps {
-  $screenwidth: number;
+interface ISectionHeaderProps {
+  alignment: string;
 }
 
+interface ISocialElementProps {
+  $delay?: number;
+  $screenwidth?: number;
+}
+
+// Keyframes
+const visibleAnimation = keyframes`
+  from { opacity: 0; top: 50px; }
+  to { opacity: 1; top: 0; }
+`
+
+const visibleSocialDiv = keyframes`
+  from { visibility: hidden; } 
+  to { visibility: visible; } 
+`
+
+const visibleSocialLine = keyframes`
+  from { height: 0; }
+  to {height: 20vh; }
+`
+
+// CSS
+const animationName = css`
+  animation-name: ${visibleAnimation};
+`
+
+// Styled
 export const AboutBioContactLink = styled.a`
   color: ${Shared.customRed}
 `
@@ -144,6 +172,7 @@ export const Header = styled.header<IHeaderProps>`
   flex-wrap: wrap;
   align-items: center;
   height: ${props => props.height}px;
+  visibility: ${props => props.$isvisible ? 'visible' : 'hidden'};
 
   @media (max-width: 768px) {
     height: auto;
@@ -367,20 +396,30 @@ export const SocialLinkImg = styled.img`
   height: 20px;
 `
   
-export const SocialLink = styled.a`
+export const SocialLink = styled.a<ISocialElementProps>`
   display: block;
   margin-bottom: 8px;
   color: #FFFFFF;
+
+  position: relative;
+  top: 50px;  
+  opacity: 0;
+  animation-name: ${visibleAnimation};
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+  animation-delay: ${props => props.$delay ? `${props.$delay + 2}s` : '2s' };
 
   &:hover {
     color: ${Shared.customBlue};
   }
 `
 
-export const SocialLinkDiv = styled.div<ISocialLinkDivProps>`
+export const SocialLinkDiv = styled.div<ISocialElementProps>`
   position: fixed;
   bottom: 0;
-  left: ${props => props.$screenwidth > 1280 ? `${(props.$screenwidth - 1280) / 2 + 32}px` : '32px'};
+  animation-name: ${visibleSocialDiv};
+  animation-duration: 1s;
+  left: ${props => props.$screenwidth && props.$screenwidth > 1280 ? `${(props.$screenwidth - 1280) / 2 + 32}px` : '32px'};
 
   @media (max-width: 768px) {
     display: none;
@@ -389,16 +428,27 @@ export const SocialLinkDiv = styled.div<ISocialLinkDivProps>`
 
 export const SocialVerticalLine = styled.div`
   width: 2px;
-  height: 20vh;
   margin-left: 14px;
   background-color: #FFFFFF;
+  animation-name: ${visibleSocialLine};
+  animation-duration: 0.7s;
+  animation-delay: 1.7s;
+  animation-fill-mode: forwards;
 `
 
-export const Subtitle = styled.p`
+export const Subtitle = styled.p<IHeaderElementProps>`
   font-size: 1.2rem;
   width: 100%;
   max-width: 500px;
   padding-left: 4px;
+
+  position: relative;
+  top: 50px; 
+  opacity: 0;
+  ${props => props.$isvisible && animationName}
+  animation-duration: 1s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
 
   @media (max-width: 768px) {
     margin-left: auto;
@@ -410,18 +460,35 @@ export const Subtitle = styled.p`
   }
 `
 
-export const Tagline = styled.h4`
+export const Tagline = styled.h4<IHeaderElementProps>`
   font-weight: 500;
   margin: 0 0 16px;
   padding-left: 4px;
+
+
+  position: relative;
+  top: 50px;  
+  opacity: 0;
+  ${props => props.$isvisible && animationName}
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
 
   @media (max-width: 600px) {
     font-size: 1.1rem;
   }
 `
 
-export const Title = styled.h1`
+export const Title = styled.h1<IHeaderElementProps>`
   margin: 16px 0;
+
+
+  position: relative;
+  top: 50px; 
+  opacity: 0;
+  ${props => props.$isvisible && animationName}
+  animation-duration: 1s;
+  animation-delay: 0.25s;
+  animation-fill-mode: forwards;
 
   @media (max-width: 1068px) {
     font-size: 3rem;
