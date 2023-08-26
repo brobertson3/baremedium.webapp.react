@@ -21,9 +21,15 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
   const intersectionHeaderRef = useRef<HTMLElement | null>(null);
   const intersectionAboutRef = useRef<HTMLDivElement | null>(null);
   const intersectionContactRef = useRef<HTMLDivElement | null>(null);
+  const intersectionAboutHeadingRef = useRef<HTMLDivElement | null>(null);
+  const intersectionContactHeadingRef = useRef<HTMLDivElement | null>(null);
+  const intersectionProjectsHeadingRef = useRef<HTMLDivElement | null>(null);
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const [isAboutVisible, setIsAboutVisible] = useState(false);
+  const [isAboutHeadingVisible, setIsAboutHeadingVisible] = useState(false);
   const [isContactVisible, setIsContactVisible] = useState(false);
+  const [isContactHeadingVisible, setIsContactHeadingVisible] = useState(false);
+  const [isProjectsHeadingVisible, setIsProjectsHeadingVisible] = useState(false);
   const screenSize = useScreenSize();
   const intersectionOptions = {
     root: null,
@@ -35,14 +41,17 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         if (entry.target === intersectionHeaderRef.current) {
-          console.log('header hit')
           setIsHeaderVisible(true);
         } else if (entry.target === intersectionAboutRef.current) {
-          console.log('about hit')
           setIsAboutVisible(true);
+        } else if (entry.target === intersectionAboutHeadingRef.current) {
+          setIsAboutHeadingVisible(true);
+        } else if (entry.target === intersectionProjectsHeadingRef.current) {
+          setIsProjectsHeadingVisible(true);
         } else if (entry.target === intersectionContactRef.current) {
-          console.log('contact hit')
           setIsContactVisible(true);
+        } else if (entry.target === intersectionContactHeadingRef.current) {
+          setIsContactHeadingVisible(true);
         }
       }
     })
@@ -62,12 +71,24 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
       observer.observe(intersectionHeaderRef.current);
     }
 
+    if (intersectionAboutHeadingRef.current) {
+      observer.observe(intersectionAboutHeadingRef.current);
+    }
+
     if (intersectionAboutRef.current) {
       observer.observe(intersectionAboutRef.current);
     }
 
+    if (intersectionContactHeadingRef.current) {
+      observer.observe(intersectionContactHeadingRef.current);
+    }
+
     if (intersectionContactRef.current) {
       observer.observe(intersectionContactRef.current);
+    }
+
+    if (intersectionProjectsHeadingRef.current) {
+      observer.observe(intersectionProjectsHeadingRef.current);
     }
     
     return () => {
@@ -183,11 +204,13 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
         </div>
       </Styled.Header>
 
-      <Styled.AboutVisibilityDiv ref={intersectionAboutRef} $isvisible={isAboutVisible}>
+      <Styled.HeadingVisibleDiv ref={intersectionAboutHeadingRef} $isvisible={isAboutHeadingVisible} $ismobile={isMobile}>
         <Styled.SectionHeaderDiv alignment='center' ref={aboutMeSectionRef}>
           <Styled.SectionHeaderTitle alignment='center'>About Me</Styled.SectionHeaderTitle>
           <Styled.HeadingUnderline />
         </Styled.SectionHeaderDiv>
+      </Styled.HeadingVisibleDiv>
+      <Styled.AboutVisibilityDiv ref={intersectionAboutRef} $isvisible={isAboutVisible}>
         <Styled.AboutContainerDiv>
           <Styled.AboutProfileImageDiv>
             <Styled.AboutProfileImage src={ProfileImage} alt='Profile image of Brent Robertson (Solo Developer at Bare Medium)' onMouseEnter={handleMouseEnterProfileImage} onMouseLeave={handleMouseLeaveProfileImage} />
@@ -213,10 +236,12 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
         </Styled.AboutContainerDiv>
       </Styled.AboutVisibilityDiv>
 
-      <Styled.SectionHeaderDiv alignment={isMobile ? 'center' : 'left'} ref={projectsSectionRef}>
-        <Styled.SectionHeaderTitle alignment={isMobile ? 'center' : 'left'}>Projects</Styled.SectionHeaderTitle>
-        <Styled.HeadingUnderline />
-      </Styled.SectionHeaderDiv>
+      <Styled.ProjectsHeadingVisibilityDiv ref={intersectionProjectsHeadingRef} $isvisible={isProjectsHeadingVisible}>
+        <Styled.SectionHeaderDiv alignment={isMobile ? 'center' : 'left'} ref={projectsSectionRef}>
+          <Styled.SectionHeaderTitle alignment={isMobile ? 'center' : 'left'}>Projects</Styled.SectionHeaderTitle>
+          <Styled.HeadingUnderline />
+        </Styled.SectionHeaderDiv>
+      </Styled.ProjectsHeadingVisibilityDiv>
       <>
         {
           projects.map((project, index) => (
@@ -268,8 +293,8 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
               }
               {
                 isMobile && (
-                 <Styled.ProjectMobileContainerDiv>
-                   <Styled.ProjectTitleDiv>
+                <Styled.ProjectMobileContainerDiv>
+                  <Styled.ProjectTitleDiv>
                       <Styled.ProjectTitleTextDiv>
                         <Styled.ProjectTitleLink href={project.link}>
                           <Styled.ProjectTitle>{project.title}</Styled.ProjectTitle>
@@ -277,12 +302,12 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
                         <Styled.ProjectTitleCircleBackground />
                       </Styled.ProjectTitleTextDiv>
                     </Styled.ProjectTitleDiv>
-                   <Styled.ProjectMobileScreenshotDiv>
+                  <Styled.ProjectMobileScreenshotDiv>
                     <a href={project.link} target='_blank' rel='noopener noreferrer'>
                       <Styled.ProjectMobileImg src={project.screenshot} alt={project.altText} />
                     </a>
-                   </Styled.ProjectMobileScreenshotDiv>
-                   <Styled.ProjectDescriptionDiv>
+                  </Styled.ProjectMobileScreenshotDiv>
+                  <Styled.ProjectDescriptionDiv>
                       <Styled.ProjectDescription>
                         {project.description}
                       </Styled.ProjectDescription>
@@ -306,18 +331,20 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
                         <Styled.CustomFontAwesomeIcon width={20} height={20} icon={faArrowUpRightFromSquare} />
                       </Styled.ProjectIconLink>
                     </Styled.ProjectLinksList>
-                 </Styled.ProjectMobileContainerDiv>
+                </Styled.ProjectMobileContainerDiv>
                 )
               }
             </div>
           ))
         }
       </>
-      <Styled.ContactVisibleDiv ref={intersectionContactRef} $isvisible={isContactVisible}>
+      <Styled.HeadingVisibleDiv ref={intersectionContactHeadingRef} $isvisible={isContactHeadingVisible}>
         <Styled.SectionHeaderDiv alignment='center' ref={contactSectionRef}>
           <Styled.SectionHeaderTitle alignment='center'>Get In Touch</Styled.SectionHeaderTitle>
           <Styled.HeadingUnderline />
         </Styled.SectionHeaderDiv>
+      </Styled.HeadingVisibleDiv>
+      <Styled.ContactVisibleDiv ref={intersectionContactRef} $isvisible={isContactVisible}>
         <Styled.ContactDiv>
           <Styled.ContactText>I'm currently open to discussing full-time, contract, or freelance opportunities. You can reach me at baremedium@gmail.com.</Styled.ContactText>
           <Styled.ContactButtonDiv>

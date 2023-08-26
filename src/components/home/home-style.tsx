@@ -26,12 +26,21 @@ interface IHeaderProps {
   $isvisible: boolean;
 }
 
+interface IHeadingVisibleProps {
+  $ismobile?: boolean;
+  $isvisible: boolean;
+}
+
 interface IProjectIconLinkProps {
   $isgithub?: boolean;
 }
 
 interface IProjectProps {
   $iseven?: boolean;
+}
+
+interface IProjectsProps {
+  $isvisible: boolean;
 }
 
 interface ISectionHeaderProps {
@@ -62,6 +71,10 @@ const visibleSocialLine = keyframes`
 // CSS
 const animationName = css`
   animation-name: ${visibleAnimation};
+`
+
+const animationHeadingDelay = css`
+  animation-delay: 2s;
 `
 
 // Styled
@@ -205,6 +218,17 @@ export const Header = styled.header<IHeaderProps>`
     margin: 80px 0;
     text-align: center;
   }
+`
+
+export const HeadingVisibleDiv = styled.div<IHeadingVisibleProps>`
+  position: relative;
+  top: 50px; 
+  opacity: 0;
+  ${props => props.$isvisible && animationName}
+  ${props => props.$ismobile && animationHeadingDelay}
+  $isvisible: boolean;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
 `
 
 export const HeadingUnderline = styled.div`
@@ -400,6 +424,15 @@ export const ProjectMobileImg = styled.img`
   height: 100%;
   width: 100%;
   border-radius: 8px; 
+`
+
+export const ProjectsHeadingVisibilityDiv = styled.div<IHeadingVisibleProps>`
+  position: relative;
+  top: 50px; 
+  opacity: 0;
+  ${props => props.$isvisible && animationName}
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
 `
 
 export const SecondaryTitleSpan = styled.span`
