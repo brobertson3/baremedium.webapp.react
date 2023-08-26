@@ -3,6 +3,7 @@ import * as Shared from '../shared-style'
 
 interface IMenuButtonProps {
   $isclose: boolean;
+  $delay?: number;
 }
 
 interface IMenuListProps {
@@ -23,9 +24,18 @@ const visibleAnimation = keyframes`
   to { opacity: 1; top: 0; }
 `
 
+const visibleAnimationMobileButton = keyframes`
+  from { opacity: 0; top: -20px; }
+  to { opacity: 1; top: 30px; }
+`
+
 // CSS
 const animationName = css`
   animation-name: ${visibleAnimation};
+`
+
+const animationMobileButton = css`
+  animation-name: ${visibleAnimationMobileButton};
 `
 
 export const LogoDiv = styled.div`
@@ -65,8 +75,14 @@ export const MobileMenuButton = styled.div<IMenuButtonProps>`
   transform: ${props => props.$isclose ? 'rotate(180deg)' : 'rotate(0)'};
   z-index: 999;
   position: absolute;
-  top: 30px;
+  top: -20px;
   right: 30px;
+
+  opacity: 0;
+  ${animationMobileButton}
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-delay: ${props => props.$delay ? `${props.$delay + 0.4}s` : '0.4s' };
 `
 
 export const MobileMenuButtonLine = styled.div<IMenuButtonProps>`

@@ -72,7 +72,7 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, 
                   <Styled.NavLink
                     key={`navigationLink${index}`} 
                     onClick={() => handleLinkClick(link.text)}
-                    $delay={0.2 * index}  
+                    $delay={0.2 * index}
                   >
                     {link.text}
                   </Styled.NavLink>
@@ -88,7 +88,7 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, 
                 <Styled.MobileOverlay $showoverlay={mobileMenuShow} />
               }
               <Styled.MobileMenuDiv>
-                <Styled.MobileMenuButton onClick={handleMobileMenuClick} $isclose={mobileMenuShow}>
+                <Styled.MobileMenuButton onClick={handleMobileMenuClick} $isclose={mobileMenuShow} $delay={0.2}>
                   <Styled.MobileMenuButtonLine $isclose={mobileMenuShow}/>
                   <Styled.MobileMenuButtonLine $isclose={mobileMenuShow}/>
                   <Styled.MobileMenuButtonLine $isclose={mobileMenuShow}/>
