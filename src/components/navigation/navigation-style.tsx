@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import { css, keyframes, styled }from 'styled-components'
 import * as Shared from '../shared-style'
 
 interface IMenuButtonProps {
@@ -13,9 +13,31 @@ interface IMobileOverlayProps {
   $showoverlay: boolean;
 }
 
+interface INavLink {
+  $delay: number;
+}
+
+// Keyframes
+const visibleAnimation = keyframes`
+  from { opacity: 0; top: -50px; }
+  to { opacity: 1; top: 0; }
+`
+
+// CSS
+const animationName = css`
+  animation-name: ${visibleAnimation};
+`
+
 export const LogoDiv = styled.div`
   display: flex;
   align-items: center;
+  
+  position: relative;
+  top: 50px;  
+  opacity: 0;
+  ${animationName}
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
 `
 
 export const LogoImg = styled.img`
@@ -128,11 +150,19 @@ export const NavLinkList = styled.ul`
   list-style-type: none;
 `
 
-export const NavLink = styled.li`
+export const NavLink = styled.li<INavLink>`
   display: inline-block;
   margin-right: 24px;
   font-weight: 500;
   cursor: pointer;
+
+  position: relative;
+  top: 50px;  
+  opacity: 0;
+  animation-name: ${visibleAnimation};
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-delay: ${props => props.$delay ? `${props.$delay + 0.4}s` : '0.4s' };
 
   &:hover {
     border-bottom: solid 2px #ffffff;

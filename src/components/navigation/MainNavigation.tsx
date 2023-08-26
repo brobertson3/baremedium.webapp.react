@@ -69,7 +69,13 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, 
             <Styled.NavLinkList>
               {
                 navigationLinks.map((link, index) => (
-                  <Styled.NavLink key={`navigationLink${index}`} onClick={() => handleLinkClick(link.text)}>{link.text}</Styled.NavLink>
+                  <Styled.NavLink
+                    key={`navigationLink${index}`} 
+                    onClick={() => handleLinkClick(link.text)}
+                    $delay={0.2 * index}  
+                  >
+                    {link.text}
+                  </Styled.NavLink>
                 ))
               }
             </Styled.NavLinkList>

@@ -199,7 +199,7 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
       <>
         {
           projects.map((project, index) => (
-            <>
+            <div key={`ProjectDiv${index}`}>
               {
                 !isMobile && (
                   <Styled.ProjectContainerDiv key={`projectContainer${index}`} $iseven={(index + 1) % 2 === 0}>
@@ -288,7 +288,7 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
                  </Styled.ProjectMobileContainerDiv>
                 )
               }
-            </>
+            </div>
           ))
         }
       </>

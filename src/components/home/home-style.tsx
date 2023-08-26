@@ -405,9 +405,9 @@ export const SocialLink = styled.a<ISocialElementProps>`
   top: 50px;  
   opacity: 0;
   animation-name: ${visibleAnimation};
-  animation-duration: 0.7s;
+  animation-duration: 0.4s;
   animation-fill-mode: forwards;
-  animation-delay: ${props => props.$delay ? `${props.$delay + 2}s` : '2s' };
+  animation-delay: ${props => props.$delay ? `${props.$delay + 2.3}s` : '2.3s' };
 
   &:hover {
     color: ${Shared.customBlue};
@@ -431,8 +431,8 @@ export const SocialVerticalLine = styled.div`
   margin-left: 14px;
   background-color: #FFFFFF;
   animation-name: ${visibleSocialLine};
-  animation-duration: 0.7s;
-  animation-delay: 1.7s;
+  animation-duration: 0.5s;
+  animation-delay: 2.4s;
   animation-fill-mode: forwards;
 `
 
@@ -446,8 +446,8 @@ export const Subtitle = styled.p<IHeaderElementProps>`
   top: 50px; 
   opacity: 0;
   ${props => props.$isvisible && animationName}
-  animation-duration: 1s;
-  animation-delay: 0.5s;
+  animation-duration: 0.7s;
+  animation-delay: 1.4s;
   animation-fill-mode: forwards;
 
   @media (max-width: 768px) {
@@ -470,8 +470,9 @@ export const Tagline = styled.h4<IHeaderElementProps>`
   top: 50px;  
   opacity: 0;
   ${props => props.$isvisible && animationName}
-  animation-duration: 1s;
+  animation-duration: 0.7s;
   animation-fill-mode: forwards;
+  animation-delay: 1s;
 
   @media (max-width: 600px) {
     font-size: 1.1rem;
@@ -486,8 +487,8 @@ export const Title = styled.h1<IHeaderElementProps>`
   top: 50px; 
   opacity: 0;
   ${props => props.$isvisible && animationName}
-  animation-duration: 1s;
-  animation-delay: 0.25s;
+  animation-duration: 0.7s;
+  animation-delay: 1.2s;
   animation-fill-mode: forwards;
 
   @media (max-width: 1068px) {
