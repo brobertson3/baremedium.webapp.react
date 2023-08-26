@@ -4,9 +4,17 @@ import * as Shared from '../shared-style'
 
 const projectScreenShotBackgroundColor = '#508ef1';
 
-interface IFAProps{
+interface IFAProps {
   width: number;
   height: number;
+}
+
+interface IAboutProps {
+  $isvisible: boolean;
+}
+
+interface IContactProps {
+  $isvisible: boolean;
 }
 
 interface IHeaderElementProps {
@@ -117,6 +125,15 @@ export const AboutProfileImageDiv = styled.div`
   justify-content: center;
 `
 
+export const AboutVisibilityDiv = styled.div<IAboutProps>`
+  position: relative;
+  top: 50px; 
+  opacity: 0;
+  ${props => props.$isvisible && animationName}
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+`
+
 export const ContactButton = styled.button`
   padding: 16px 16px;
   background-color: ${Shared.customRed};
@@ -157,6 +174,15 @@ export const ContactText = styled.p`
   text-align: center;
   width: 100%;
   max-width: 750px;
+`
+
+export const ContactVisibleDiv = styled.div<IContactProps>`
+  position: relative;
+  top: 50px; 
+  opacity: 0;
+  ${props => props.$isvisible && animationName}
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
 `
 
 export const CustomFontAwesomeIcon = styled(FontAwesomeIcon)<IFAProps>`

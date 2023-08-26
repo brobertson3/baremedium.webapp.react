@@ -19,19 +19,30 @@ interface IHomeProps {
 function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSectionRef }: IHomeProps) {
   const profileImageBackgroundRef = useRef<HTMLDivElement | null>(null);
   const intersectionHeaderRef = useRef<HTMLElement | null>(null);
+  const intersectionAboutRef = useRef<HTMLDivElement | null>(null);
+  const intersectionContactRef = useRef<HTMLDivElement | null>(null);
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
+  const [isAboutVisible, setIsAboutVisible] = useState(false);
+  const [isContactVisible, setIsContactVisible] = useState(false);
   const screenSize = useScreenSize();
   const intersectionOptions = {
     root: null,
     rootMargin: "0px",
-    threshold: 0.5,
+    threshold: 0.45,
   };
   
   const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         if (entry.target === intersectionHeaderRef.current) {
+          console.log('header hit')
           setIsHeaderVisible(true);
+        } else if (entry.target === intersectionAboutRef.current) {
+          console.log('about hit')
+          setIsAboutVisible(true);
+        } else if (entry.target === intersectionContactRef.current) {
+          console.log('contact hit')
+          setIsContactVisible(true);
         }
       }
     })
@@ -49,6 +60,14 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
     const observer = new IntersectionObserver(intersectionCallback, intersectionOptions);
     if (intersectionHeaderRef.current) {
       observer.observe(intersectionHeaderRef.current);
+    }
+
+    if (intersectionAboutRef.current) {
+      observer.observe(intersectionAboutRef.current);
+    }
+
+    if (intersectionContactRef.current) {
+      observer.observe(intersectionContactRef.current);
     }
     
     return () => {
@@ -164,33 +183,35 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
         </div>
       </Styled.Header>
 
-      <Styled.SectionHeaderDiv alignment='center' ref={aboutMeSectionRef}>
-        <Styled.SectionHeaderTitle alignment='center'>About Me</Styled.SectionHeaderTitle>
-        <Styled.HeadingUnderline />
-      </Styled.SectionHeaderDiv>
-      <Styled.AboutContainerDiv>
-        <Styled.AboutProfileImageDiv>
-          <Styled.AboutProfileImage src={ProfileImage} alt='Profile image of Brent Robertson (Solo Developer at Bare Medium)' onMouseEnter={handleMouseEnterProfileImage} onMouseLeave={handleMouseLeaveProfileImage} />
-          <Styled.AboutProfileImageBackgroundDiv ref={profileImageBackgroundRef} />
-        </Styled.AboutProfileImageDiv>
-        <Styled.AboutBioDiv>
-          <p>
-            Hi there! My name is Brent and I'm a Software Engineer specializing in Front End Development. I've been exclusively creating things for the web for the past 6 years, but I've been coding in general since 2012.
-            I've worked with a variety of companies and clients, including: startups, small businesses, and government agencies. My motivation for beginning my coding career is the same thing that keeps me going to this day -
-            I just want to create beautiful experiences that make a difference.
-          </p>
-          <p>
-            These days I specialize in: React, JavaScript, TypeScript, HTML5, CSS3, Firebase, Node.js, Express, and Wordpress. Feel free to reach out if you have a project or full-time opportunity.
-          </p>
-          <Styled.ContactButtonDiv>
-            <Styled.ContactButton>
-              <Styled.ContactButtonLink href='mailto: baremedium@gmail.com'>
-                Contact Me
-              </Styled.ContactButtonLink>
-            </Styled.ContactButton>
-          </Styled.ContactButtonDiv>
-        </Styled.AboutBioDiv>
-      </Styled.AboutContainerDiv>
+      <Styled.AboutVisibilityDiv ref={intersectionAboutRef} $isvisible={isAboutVisible}>
+        <Styled.SectionHeaderDiv alignment='center' ref={aboutMeSectionRef}>
+          <Styled.SectionHeaderTitle alignment='center'>About Me</Styled.SectionHeaderTitle>
+          <Styled.HeadingUnderline />
+        </Styled.SectionHeaderDiv>
+        <Styled.AboutContainerDiv>
+          <Styled.AboutProfileImageDiv>
+            <Styled.AboutProfileImage src={ProfileImage} alt='Profile image of Brent Robertson (Solo Developer at Bare Medium)' onMouseEnter={handleMouseEnterProfileImage} onMouseLeave={handleMouseLeaveProfileImage} />
+            <Styled.AboutProfileImageBackgroundDiv ref={profileImageBackgroundRef} />
+          </Styled.AboutProfileImageDiv>
+          <Styled.AboutBioDiv>
+            <p>
+              Hi there! My name is Brent and I'm a Software Engineer specializing in Front End Development. I've been exclusively creating things for the web for the past 6 years, but I've been coding in general since 2012.
+              I've worked with a variety of companies and clients, including: startups, small businesses, and government agencies. My motivation for beginning my coding career is the same thing that keeps me going to this day -
+              I just want to create beautiful experiences that make a difference.
+            </p>
+            <p>
+              These days I specialize in: React, JavaScript, TypeScript, HTML5, CSS3, Firebase, Node.js, Express, and Wordpress. Feel free to reach out if you have a project or full-time opportunity.
+            </p>
+            <Styled.ContactButtonDiv>
+              <Styled.ContactButton>
+                <Styled.ContactButtonLink href='mailto: baremedium@gmail.com'>
+                  Contact Me
+                </Styled.ContactButtonLink>
+              </Styled.ContactButton>
+            </Styled.ContactButtonDiv>
+          </Styled.AboutBioDiv>
+        </Styled.AboutContainerDiv>
+      </Styled.AboutVisibilityDiv>
 
       <Styled.SectionHeaderDiv alignment={isMobile ? 'center' : 'left'} ref={projectsSectionRef}>
         <Styled.SectionHeaderTitle alignment={isMobile ? 'center' : 'left'}>Projects</Styled.SectionHeaderTitle>
@@ -292,21 +313,22 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
           ))
         }
       </>
-      
-      <Styled.SectionHeaderDiv alignment='center' ref={contactSectionRef}>
-        <Styled.SectionHeaderTitle alignment='center'>Get In Touch</Styled.SectionHeaderTitle>
-        <Styled.HeadingUnderline />
-      </Styled.SectionHeaderDiv>
-      <Styled.ContactDiv>
-        <Styled.ContactText>I'm currently open to discussing full-time, contract, or freelance opportunities. You can reach me at baremedium@gmail.com.</Styled.ContactText>
-        <Styled.ContactButtonDiv>
-          <Styled.ContactButton>
-            <Styled.ContactButtonLink href='mailto: baremedium@gmail.com'>
-              Contact Me
-            </Styled.ContactButtonLink>
-          </Styled.ContactButton>
-        </Styled.ContactButtonDiv>
-      </Styled.ContactDiv>
+      <Styled.ContactVisibleDiv ref={intersectionContactRef} $isvisible={isContactVisible}>
+        <Styled.SectionHeaderDiv alignment='center' ref={contactSectionRef}>
+          <Styled.SectionHeaderTitle alignment='center'>Get In Touch</Styled.SectionHeaderTitle>
+          <Styled.HeadingUnderline />
+        </Styled.SectionHeaderDiv>
+        <Styled.ContactDiv>
+          <Styled.ContactText>I'm currently open to discussing full-time, contract, or freelance opportunities. You can reach me at baremedium@gmail.com.</Styled.ContactText>
+          <Styled.ContactButtonDiv>
+            <Styled.ContactButton>
+              <Styled.ContactButtonLink href='mailto: baremedium@gmail.com'>
+                Contact Me
+              </Styled.ContactButtonLink>
+            </Styled.ContactButton>
+          </Styled.ContactButtonDiv>
+        </Styled.ContactDiv>
+      </Styled.ContactVisibleDiv>
     </Styled.Main>
   )
 }
