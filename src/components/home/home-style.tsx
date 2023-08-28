@@ -37,10 +37,7 @@ interface IProjectIconLinkProps {
 
 interface IProjectProps {
   $iseven?: boolean;
-}
-
-interface IProjectsProps {
-  $isvisible: boolean;
+  $isvisible?: boolean;
 }
 
 interface ISectionHeaderProps {
@@ -270,6 +267,12 @@ export const ProjectContainerDiv = styled.div<IProjectProps>`
   display: ${props => props.$iseven ? 'flex' : 'block'};
   justify-content: flex-end;
 
+  top: 50px;
+  opacity: 0;
+  ${props => props.$isvisible && animationName}
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
+
   &:last-of-type {
     margin-bottom: 80px;
   }
@@ -401,7 +404,7 @@ export const ProjectTitleTextDiv = styled.div`
   }
 `
 
-export const ProjectMobileContainerDiv = styled.div`
+export const ProjectMobileContainerDiv = styled.div<IProjectProps>`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -409,6 +412,13 @@ export const ProjectMobileContainerDiv = styled.div`
   padding: 24px;
   border-radius: 8px;
   border: solid 2px ${Shared.customBlue};
+
+  position: relative;
+  top: 50px;
+  opacity: 0;
+  ${props => props.$isvisible && animationName}
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
 `
 
 export const ProjectMobileScreenshotDiv = styled.div`

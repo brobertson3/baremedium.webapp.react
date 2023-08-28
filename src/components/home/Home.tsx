@@ -24,18 +24,25 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
   const intersectionAboutHeadingRef = useRef<HTMLDivElement | null>(null);
   const intersectionContactHeadingRef = useRef<HTMLDivElement | null>(null);
   const intersectionProjectsHeadingRef = useRef<HTMLDivElement | null>(null);
+  const intersectionProjectRefs = useRef<HTMLDivElement[] | null[]>([]);
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const [isAboutVisible, setIsAboutVisible] = useState(false);
   const [isAboutHeadingVisible, setIsAboutHeadingVisible] = useState(false);
   const [isContactVisible, setIsContactVisible] = useState(false);
   const [isContactHeadingVisible, setIsContactHeadingVisible] = useState(false);
   const [isProjectsHeadingVisible, setIsProjectsHeadingVisible] = useState(false);
+  const [isProjectVisible, setIsProjectVisible] = useState<number[]>([]);
+  const isProjectVisibleRef = useRef<number[]>([]);
   const screenSize = useScreenSize();
   const intersectionOptions = {
     root: null,
     rootMargin: "0px",
     threshold: 0.45,
   };
+
+  useEffect(() => {
+    isProjectVisibleRef.current = isProjectVisible;
+  }, [isProjectVisible])
   
   const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
@@ -52,6 +59,14 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
           setIsContactVisible(true);
         } else if (entry.target === intersectionContactHeadingRef.current) {
           setIsContactHeadingVisible(true);
+        } else {
+          const visibleArray: number[] = [...isProjectVisibleRef.current];
+          intersectionProjectRefs.current.forEach((ref, index) => {
+            if (entry.target === ref && !visibleArray.includes(index)) {
+              visibleArray.push(index);
+            }
+          })
+          setIsProjectVisible(visibleArray);
         }
       }
     })
@@ -89,6 +104,14 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
 
     if (intersectionProjectsHeadingRef.current) {
       observer.observe(intersectionProjectsHeadingRef.current);
+    }
+
+    if (intersectionProjectRefs.current) {
+      intersectionProjectRefs.current.forEach((ref) => {
+        if (ref) {
+          observer.observe(ref);
+        }
+      })
     }
     
     return () => {
@@ -248,7 +271,11 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
             <div key={`ProjectDiv${index}`}>
               {
                 !isMobile && (
-                  <Styled.ProjectContainerDiv key={`projectContainer${index}`} $iseven={(index + 1) % 2 === 0}>
+                  <Styled.ProjectContainerDiv
+                    ref={(el) => (intersectionProjectRefs.current[index] = el)}
+                    $iseven={(index + 1) % 2 === 0}
+                    $isvisible={isProjectVisible.includes(index)}
+                  >
                     <Styled.ProjectScreenshotDiv $iseven={(index + 1) % 2 === 0}>
                       <a href={project.link} target='_blank' rel='noopener noreferrer'>
                         <Styled.ProjectImg src={project.screenshot} alt={project.altText} />
@@ -293,7 +320,10 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
               }
               {
                 isMobile && (
-                <Styled.ProjectMobileContainerDiv>
+                <Styled.ProjectMobileContainerDiv
+                  ref={(el) => (intersectionProjectRefs.current[index] = el)}
+                  $isvisible={isProjectVisible.includes(index)}
+                >
                   <Styled.ProjectTitleDiv>
                       <Styled.ProjectTitleTextDiv>
                         <Styled.ProjectTitleLink href={project.link}>
@@ -360,4 +390,4 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
   )
 }
 
-export default Home
+export default Home;
