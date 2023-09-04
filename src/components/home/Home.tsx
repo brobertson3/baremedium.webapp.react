@@ -6,7 +6,7 @@ import { faGithub, faLinkedin, faTwitter, faInstagram, faCodepen } from '@fortaw
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 import HealthScannerScreenshot from '../../assets/health-scanner-screenshot.png'
 import SmartDecisionScreenshot from '../../assets/smart-decision-screenshot.png'
-import BlackHistotyOTMScreenshot from '../../assets/black-history-otm-screenshot.png'
+import BlackHistoryOTMScreenshot from '../../assets/black-history-otm-screenshot.png'
 import ProfileImage from '../../assets/baremedium-headshot.jpg'
 
 interface IHomeProps {
@@ -167,7 +167,7 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
     },
     {
       link: 'https://blackhistoryotm.com/',
-      screenshot: BlackHistotyOTMScreenshot,
+      screenshot: BlackHistoryOTMScreenshot,
       altText: 'Screenshot of the Black History On The Move website',
       title: 'Black History OTM',
       description: 'A website to promote a very special small business that provides African American mobile display services and education to schools and other businesses.',
