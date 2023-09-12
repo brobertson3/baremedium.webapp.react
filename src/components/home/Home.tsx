@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import * as Styled from './home-style'
+import * as Shared from '../shared-style'
 import useScreenSize from '../../hooks/useScreenSize'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faGithub, faLinkedin, faTwitter, faInstagram, faCodepen } from '@fortawesome/free-brands-svg-icons'
@@ -196,7 +197,7 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
   }, [screenSize.width])
 
   return (
-    <Styled.Main>
+    <Shared.Main>
       <Styled.SocialLinkDiv $screenwidth={screenSize.width}>
         {
           socialLinks.map((socialLink, index) => (
@@ -386,7 +387,7 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
           </Styled.ContactButtonDiv>
         </Styled.ContactDiv>
       </Styled.ContactVisibleDiv>
-    </Styled.Main>
+    </Shared.Main>
   )
 }
 

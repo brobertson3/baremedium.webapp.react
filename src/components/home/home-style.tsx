@@ -253,14 +253,6 @@ export const ProjectIconLink = styled.a<IProjectIconLinkProps>`
   }
 `
 
-export const Main = styled.main`
-  margin: 0 96px 80px;
-
-  @media (max-width: 768px) {
-    margin: 0 0 80px;
-  }
-`
-
 export const ProjectContainerDiv = styled.div<IProjectProps>`
   position: relative;
   margin-bottom: 96px;
@@ -551,7 +543,7 @@ export const Tagline = styled.h4<IHeaderElementProps>`
 export const Title = styled.h1<IHeaderElementProps>`
   margin: 16px 0;
 
-
+  
   position: relative;
   top: 50px; 
   opacity: 0;
