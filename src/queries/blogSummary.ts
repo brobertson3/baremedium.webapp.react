@@ -6,7 +6,6 @@ const BLOG_QUERY = gql`
       data {
         attributes {
           Date
-          Content
           Summary
           Cover {
             data {
@@ -19,7 +18,6 @@ const BLOG_QUERY = gql`
             data {
               attributes {
                 Name
-                Bio
                 Avatar {
                   data {
                     attributes {
@@ -30,7 +28,6 @@ const BLOG_QUERY = gql`
               }
             }
           }
-          Tags
           Title
         }
       }

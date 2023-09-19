@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 
 import Query from '../blog/Query'
-import BLOG_QUERY from '../../queries/blog'
+import BLOG_QUERY from '../../queries/blogSummary'
 // import ApolloClient from 'apollo-boost'
 
 function App() {
