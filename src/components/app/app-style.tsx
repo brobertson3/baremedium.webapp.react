@@ -7,7 +7,7 @@ interface IMainDivProps {
 export const MainDiv = styled.div<IMainDivProps>`
   background-color: #16161D;
   padding: 16px 32px;
-  position: ${props => props.$noscroll ? 'fixed' : 'relative'};
+  position: static;
   overflow-x: hidden;
 
   @media (max-width: 600px) {
