@@ -25,7 +25,7 @@ function Blog() {
   const [searchText, setSearchText] = useState('');
   const [isSearchBoxFocused, setIsSearchBoxFocused] = useState(false);
   const [blogTags, setBlogTags] = useState([]);
-  const [checkedTags, setCheckedTags] = useState([]);
+  const [checkedTags, setCheckedTags] = useState(['all']);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value)
@@ -71,7 +71,7 @@ function Blog() {
 
   const BlogFilter = ({tags}) => {
     console.log('these are tags: ', tags)
-    const finalTags = []
+    const finalTags = ['all']
     tags.data.map((tag: {attributes: { Tags: string}}) => {
       const splitCheckedTags = tag.attributes.Tags.split(',')
       const newTagsToInclude = splitCheckedTags.filter((splitTag: string) => {
