@@ -17,7 +17,7 @@ function App() {
 
   const screenSize = useScreenSize();
 
-  const handleLinkClick = (text: string) => {
+  const handleLinkClick = (text: string, isMobileNavItem: boolean) => {
     let currentRef = null;
     switch (text) {
       case 'About':
@@ -30,11 +30,14 @@ function App() {
         currentRef = contactSectionRef
     }
     
-    setMobileMenuShow(!mobileMenuShow)
-    setNoScroll(!mobileMenuShow)
-
-    if(mainDivRef?.current) {
-      mainDivRef.current.style.position = !mobileMenuShow ? 'fixed' : 'static'
+    if (mainDivRef?.current) {
+      if (isMobileNavItem) {
+        mainDivRef.current.style.position = !mobileMenuShow ? 'fixed' : 'static'
+        setMobileMenuShow(!mobileMenuShow)
+        setNoScroll(!mobileMenuShow)
+      } else {
+        mainDivRef.current.style.position = 'static'
+      }
     }
 
     if (currentRef?.current) {
