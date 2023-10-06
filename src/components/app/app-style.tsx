@@ -7,7 +7,7 @@ interface IMainDivProps {
 export const MainDiv = styled.div<IMainDivProps>`
   background-color: #16161D;
   padding: 16px 32px;
-  position: static;
+  position: relative;
   overflow-x: hidden;
 
   @media (max-width: 600px) {

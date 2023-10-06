@@ -32,11 +32,11 @@ function App() {
     
     if (mainDivRef?.current) {
       if (isMobileNavItem) {
-        mainDivRef.current.style.position = !mobileMenuShow ? 'fixed' : 'static'
+        mainDivRef.current.style.position = !mobileMenuShow ? 'fixed' : 'relative'
         setMobileMenuShow(!mobileMenuShow)
         setNoScroll(!mobileMenuShow)
       } else {
-        mainDivRef.current.style.position = 'static'
+        mainDivRef.current.style.position = 'relative'
       }
     }
 
