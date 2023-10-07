@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import Home from '../home/Home'
 import MainNavigation from '../navigation/MainNavigation'
@@ -8,7 +8,6 @@ import useScreenSize from '../../hooks/useScreenSize'
 
 function App() {
   const [navHeight, setNavHeight] = useState(0);
-  const [noScroll, setNoScroll] = useState(false);
   const [mobileMenuShow, setMobileMenuShow] = useState(false)
   const aboutMeSectionRef = useRef<HTMLDivElement | null>(null);
   const contactSectionRef = useRef<HTMLDivElement | null>(null);
@@ -16,6 +15,18 @@ function App() {
   const projectsSectionRef = useRef<HTMLDivElement | null>(null);
 
   const screenSize = useScreenSize();
+
+  useEffect(() => {
+    if (screenSize.width > 600) {
+      setMobileMenuShow(false)
+    }
+  }, [screenSize])
+
+  useEffect(() => {
+    if (mainDivRef?.current) {
+      mainDivRef.current.style.position = mobileMenuShow ? 'fixed' : 'relative'
+    }
+  }, [mobileMenuShow])
 
   const handleLinkClick = (text: string, isMobileNavItem: boolean) => {
     let currentRef = null;
@@ -34,7 +45,6 @@ function App() {
       if (isMobileNavItem) {
         mainDivRef.current.style.position = !mobileMenuShow ? 'fixed' : 'relative'
         setMobileMenuShow(!mobileMenuShow)
-        setNoScroll(!mobileMenuShow)
       } else {
         mainDivRef.current.style.position = 'relative'
       }
@@ -46,7 +56,7 @@ function App() {
   }
 
   return (
-    <Styled.MainDiv ref={mainDivRef} $noscroll={noScroll} style={{ display: 'flex', flexDirection: 'column', minHeight: `${screenSize.height}px`}}>
+    <Styled.MainDiv ref={mainDivRef} style={{ display: 'flex', flexDirection: 'column', minHeight: `${screenSize.height}px`}}>
       <MainNavigation
         aboutMeSectionRef={aboutMeSectionRef}
         contactSectionRef={contactSectionRef}
@@ -55,7 +65,6 @@ function App() {
         handleLinkClick={handleLinkClick}
         setMobileMenuShow={setMobileMenuShow}
         setNavHeight={setNavHeight}
-        setNoScroll={setNoScroll}
       />
         <div style={{ flex: '1' }}>
           <Home

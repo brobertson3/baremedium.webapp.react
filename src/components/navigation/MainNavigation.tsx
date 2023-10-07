@@ -12,10 +12,9 @@ interface INavigationProps {
   handleLinkClick: (e: string, isMobileNavItem: boolean) => void;
   setMobileMenuShow: (e: boolean) => void;
   setNavHeight: (e: number) => void;
-  setNoScroll: (e: boolean) => void;
 }
 
-const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, projectsSectionRef, handleLinkClick, setMobileMenuShow, setNavHeight, setNoScroll }: INavigationProps) => {
+const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, projectsSectionRef, handleLinkClick, setMobileMenuShow, setNavHeight }: INavigationProps) => {
   const navigationHeader = useRef<HTMLElement | null>(null);
   const screenSize = useScreenSize();
   const [isMobile, setIsMobile] = useState(false)
@@ -54,7 +53,6 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, 
 
   const handleMobileMenuClick = () => {
     setMobileMenuShow(!mobileMenuShow)
-    setNoScroll(!mobileMenuShow)
   }
 
   return (
