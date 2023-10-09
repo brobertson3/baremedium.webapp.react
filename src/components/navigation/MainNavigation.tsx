@@ -9,13 +9,12 @@ interface INavigationProps {
   contactSectionRef: React.RefObject<HTMLDivElement> | null;
   mobileMenuShow: boolean;
   projectsSectionRef: React.RefObject<HTMLDivElement> | null;
-  handleLinkClick: (e: string) => void;
+  handleLinkClick: (e: string, isMobileNavItem: boolean) => void;
   setMobileMenuShow: (e: boolean) => void;
   setNavHeight: (e: number) => void;
-  setNoScroll: (e: boolean) => void;
 }
 
-const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, projectsSectionRef, handleLinkClick, setMobileMenuShow, setNavHeight, setNoScroll }: INavigationProps) => {
+const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, projectsSectionRef, handleLinkClick, setMobileMenuShow, setNavHeight }: INavigationProps) => {
   const navigationHeader = useRef<HTMLElement | null>(null);
   const screenSize = useScreenSize();
   const [isMobile, setIsMobile] = useState(false)
@@ -54,7 +53,6 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, 
 
   const handleMobileMenuClick = () => {
     setMobileMenuShow(!mobileMenuShow)
-    setNoScroll(!mobileMenuShow)
   }
 
   return (
@@ -71,7 +69,7 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, 
                 navigationLinks.map((link, index) => (
                   <Styled.NavLink
                     key={`navigationLink${index}`} 
-                    onClick={() => handleLinkClick(link.text)}
+                    onClick={() => handleLinkClick(link.text, isMobile)}
                     $delay={0.2 * index}
                   >
                     {link.text}
@@ -100,7 +98,7 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, 
                       navigationLinks.map((mobileLink, index) => (
                         <Styled.MobileMenuListItem
                           key={`mobileNavigationLink${index}`}
-                          onClick={() => handleLinkClick(mobileLink.text)}
+                          onClick={() => handleLinkClick(mobileLink.text, isMobile)}
                           $mobilemenushow={mobileMenuShow}
                         >
                           {mobileLink.text}

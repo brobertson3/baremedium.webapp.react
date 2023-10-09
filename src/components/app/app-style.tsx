@@ -1,13 +1,9 @@
 import styled from 'styled-components'
 
-interface IMainDivProps {
-  $noscroll: boolean;
-}
-
-export const MainDiv = styled.div<IMainDivProps>`
+export const MainDiv = styled.div`
   background-color: #16161D;
   padding: 16px 32px;
-  position: ${props => props.$noscroll ? 'fixed' : 'relative'};
+  position: relative;
   overflow-x: hidden;
 
   @media (max-width: 600px) {
