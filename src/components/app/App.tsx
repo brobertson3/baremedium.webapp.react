@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import './App.css'
 import Home from '../home/Home'
 import Blog from '../blog/Blog'
@@ -8,7 +8,10 @@ import * as Styled from './app-style'
 import useScreenSize from '../../hooks/useScreenSize'
 import {
   createBrowserRouter,
+  Outlet,
   RouterProvider,
+  // useLocation,
+  // useNavigate
 } from "react-router-dom";
 
 import Query from '../blog/Query'
@@ -18,12 +21,15 @@ import BLOG_QUERY from '../../queries/blogSummary'
 function App() {
   const [navHeight, setNavHeight] = useState(0);
   const [mobileMenuShow, setMobileMenuShow] = useState(false)
+  const [isHomeLoaded, setIsHomeLoaded] = useState(false)
   const aboutMeSectionRef = useRef<HTMLDivElement | null>(null);
   const contactSectionRef = useRef<HTMLDivElement | null>(null);
   const mainDivRef = useRef<HTMLDivElement | null>(null);
   const projectsSectionRef = useRef<HTMLDivElement | null>(null);
 
   const screenSize = useScreenSize();
+  // const location = useLocation();
+  // const navigate = useNavigate();
 
   // const [error, setError] = useState(null);
 
@@ -56,10 +62,36 @@ function App() {
   // }, []);
 
   useEffect(() => {
+    let currentRef = null
+
+    if (location.pathname === '/' && isHomeLoaded) {
+      switch (location.hash.slice(1)) {
+        case 'about':
+          currentRef = aboutMeSectionRef
+          break;
+        case 'projects':
+          currentRef = projectsSectionRef
+          break;
+        case 'contact':
+          currentRef = contactSectionRef
+          break;
+        default:
+          break;
+      }
+
+      if (currentRef?.current) {
+        currentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }
+
+
+  }, [location, isHomeLoaded]);
+
+  useEffect(() => {
     if (screenSize.width > 600) {
       setMobileMenuShow(false)
     }
-  }, [screenSize])
+  }, [screenSize]);
 
   useEffect(() => {
     if (mainDivRef?.current) {
@@ -67,8 +99,13 @@ function App() {
     }
   }, [mobileMenuShow])
 
+  const handleCheckHomeLoaded = (isLoaded: boolean) => {
+    setIsHomeLoaded(isLoaded);
+  }
+
   const handleLinkClick = (text: string, isMobileNavItem: boolean) => {
     let currentRef = null;
+
     switch (text) {
       case 'About':
         currentRef = aboutMeSectionRef
@@ -89,12 +126,23 @@ function App() {
       }
     }
 
-    if (currentRef?.current) {
-      currentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    if (location && location.pathname === '/') {
+      if (currentRef?.current) {
+        currentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    } else {
+      window.location.href = `/#${text.toLowerCase()}`
     }
+    
   }
 
-  const router = createBrowserRouter([
+  const AppLayout = () => {
+    return (
+      <Outlet />
+    )
+  }
+
+  const generalRoutes = [
     {
       path: '/',
       element: <Home
@@ -102,11 +150,19 @@ function App() {
         contactSectionRef={contactSectionRef}
         navHeight={navHeight}
         projectsSectionRef={projectsSectionRef}
+        handleCheckHomeLoaded={handleCheckHomeLoaded}
       />
     },
     {
       path: '/blog',
       element: <Blog />
+    }
+  ]
+
+  const router = createBrowserRouter([
+    {
+      element: <AppLayout />,
+      children: generalRoutes,
     }
   ])
 

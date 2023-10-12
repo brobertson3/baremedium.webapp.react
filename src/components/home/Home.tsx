@@ -15,9 +15,10 @@ interface IHomeProps {
   contactSectionRef: React.RefObject<HTMLDivElement> | null;
   navHeight: number;
   projectsSectionRef: React.RefObject<HTMLDivElement> | null;
+  handleCheckHomeLoaded: (isLoaded: boolean) => void;
 }
 
-function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSectionRef }: IHomeProps) {
+function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSectionRef, handleCheckHomeLoaded }: IHomeProps) {
   const profileImageBackgroundRef = useRef<HTMLDivElement | null>(null);
   const intersectionHeaderRef = useRef<HTMLElement | null>(null);
   const intersectionAboutRef = useRef<HTMLDivElement | null>(null);
@@ -40,6 +41,14 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
     rootMargin: "0px",
     threshold: 0.45,
   };
+
+  useEffect(() => {
+    handleCheckHomeLoaded(true)
+
+    return () => {
+      handleCheckHomeLoaded(false)
+    }
+  }, [])
 
   useEffect(() => {
     isProjectVisibleRef.current = isProjectVisible;
@@ -234,7 +243,7 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
           <Styled.HeadingUnderline />
         </Styled.SectionHeaderDiv>
       </Styled.HeadingVisibleDiv>
-      <Styled.AboutVisibilityDiv ref={intersectionAboutRef} $isvisible={isAboutVisible}>
+      <Styled.AboutVisibilityDiv id={'#about'} ref={intersectionAboutRef} $isvisible={isAboutVisible}>
         <Styled.AboutContainerDiv>
           <Styled.AboutProfileImageDiv>
             <Styled.AboutProfileImage src={ProfileImage} alt='Profile image of Brent Robertson (Solo Developer at Bare Medium)' onMouseEnter={handleMouseEnterProfileImage} onMouseLeave={handleMouseLeaveProfileImage} />
@@ -260,7 +269,7 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
         </Styled.AboutContainerDiv>
       </Styled.AboutVisibilityDiv>
 
-      <Styled.ProjectsHeadingVisibilityDiv ref={intersectionProjectsHeadingRef} $isvisible={isProjectsHeadingVisible}>
+      <Styled.ProjectsHeadingVisibilityDiv id={'#projects'} ref={intersectionProjectsHeadingRef} $isvisible={isProjectsHeadingVisible}>
         <Styled.SectionHeaderDiv alignment={isMobile ? 'center' : 'left'} ref={projectsSectionRef}>
           <Styled.SectionHeaderTitle alignment={isMobile ? 'center' : 'left'}>Projects</Styled.SectionHeaderTitle>
           <Styled.HeadingUnderline />
@@ -369,7 +378,7 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
           ))
         }
       </>
-      <Styled.HeadingVisibleDiv ref={intersectionContactHeadingRef} $isvisible={isContactHeadingVisible}>
+      <Styled.HeadingVisibleDiv id={'#contact'} ref={intersectionContactHeadingRef} $isvisible={isContactHeadingVisible}>
         <Styled.SectionHeaderDiv alignment='center' ref={contactSectionRef}>
           <Styled.SectionHeaderTitle alignment='center'>Get In Touch</Styled.SectionHeaderTitle>
           <Styled.HeadingUnderline />

@@ -9,9 +9,8 @@ import '../app/App.css'
 import * as Shared from '../shared-style'
 import ReactMarkdown from "react-markdown";
 
-function BlogPost({data}) {
+function BlogPost({ data }) {
   const { Title } = data
-  console
   return (
     <>
       <h1>Title: {Title}</h1>
