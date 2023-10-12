@@ -29,6 +29,10 @@ const MainNavigation = ({ aboutMeSectionRef, contactSectionRef, mobileMenuShow, 
       section: contactSectionRef,
     },
     {
+      text: 'Blog',
+      section: null,
+    },
+    {
       text: 'Contact',
       section: projectsSectionRef,
     },

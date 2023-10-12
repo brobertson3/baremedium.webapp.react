@@ -69,7 +69,7 @@ function Blog() {
     )
   }
 
-  const BlogFilter = ({tags}) => {
+  const BlogFilter = ({ tags }) => {
     console.log('these are tags: ', tags)
     const finalTags = ['all']
     tags.data.map((tag: {attributes: { Tags: string}}) => {

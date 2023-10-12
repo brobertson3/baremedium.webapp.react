@@ -84,7 +84,6 @@ function App() {
       }
     }
 
-
   }, [location, isHomeLoaded]);
 
   useEffect(() => {
@@ -105,16 +104,24 @@ function App() {
 
   const handleLinkClick = (text: string, isMobileNavItem: boolean) => {
     let currentRef = null;
+    let isSectionId = false;
+    const lowerCaseText = text.toLowerCase();
 
     switch (text) {
       case 'About':
         currentRef = aboutMeSectionRef
+        isSectionId = true
         break;
       case 'Projects':
         currentRef = projectsSectionRef
+        isSectionId = true
+        break;
+      case 'Contact':
+        currentRef = contactSectionRef
+        isSectionId = true
         break;
       default:
-        currentRef = contactSectionRef
+        break;
     }
     
     if (mainDivRef?.current) {
@@ -129,11 +136,16 @@ function App() {
     if (location && location.pathname === '/') {
       if (currentRef?.current) {
         currentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      } else {
+        window.location.href = `/${lowerCaseText}`
       }
     } else {
-      window.location.href = `/#${text.toLowerCase()}`
+      if (isSectionId) {
+        window.location.href = `/#${lowerCaseText}`
+      } else if (location.pathname.slice(1) !== lowerCaseText) {
+        window.location.href = `/${lowerCaseText}`
+      }
     }
-    
   }
 
   const AppLayout = () => {
