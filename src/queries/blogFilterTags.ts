@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 const BLOG_QUERY = gql`
-  query {
+  query filterTagsQuery {
     posts {
       data {
         attributes {

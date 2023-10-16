@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 // import * as Styled from './app-style'
 // import useScreenSize from '../../hooks/useScreenSize'
 // import {
@@ -20,12 +20,19 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import '../blog/Blog.css'
 
+interface ITagProps {
+  Tags: {
+    contains: string
+  }
+}
+
 function Blog() {
 
   const [searchText, setSearchText] = useState('');
   const [isSearchBoxFocused, setIsSearchBoxFocused] = useState(false);
-  const [blogTags, setBlogTags] = useState([]);
+  // const [blogTags, setBlogTags] = useState([]);
   const [checkedTags, setCheckedTags] = useState(['all']);
+  const [filterTagQuery, setFilterTagQuery] = useState<ITagProps[]>([])
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value)
@@ -43,7 +50,22 @@ function Blog() {
     const newCheckedTags = checkedTags.includes(e.target.value) ? checkedTags.filter((tag) => tag !== e.target.value) : [...checkedTags, e.target.value]
     
     setCheckedTags(newCheckedTags)
-  } 
+  }
+
+  useEffect(() => {
+    let newTagQuery: ITagProps[] = []
+
+    if (checkedTags.length > 0 && !checkedTags.includes("all")) {
+      // Example GraphQL filter [{ Tags: { contains: "development" } }, { Tags: { contains: "test" }}]
+      newTagQuery = checkedTags.map((tag) => {
+        return { Tags: { contains: tag } }
+      })
+    } else {
+      newTagQuery.push({ Tags: { contains: '' } })
+    }
+
+    setFilterTagQuery(newTagQuery)
+  }, [checkedTags])
 
   const BlogSummaryCards = ({data}) => {
     console.log('this is data in blog: ', data.data)
@@ -65,14 +87,13 @@ function Blog() {
           })
         }
       </>
-      
     )
   }
 
   const BlogFilter = ({ tags }) => {
     console.log('these are tags: ', tags)
     const finalTags = ['all']
-    tags.data.map((tag: {attributes: { Tags: string}}) => {
+    tags.data.map((tag: {attributes: { Tags: string }}) => {
       const splitCheckedTags = tag.attributes.Tags.split(',')
       const newTagsToInclude = splitCheckedTags.filter((splitTag: string) => {
         const trimmedTag: string = splitTag.trim()
@@ -138,7 +159,7 @@ function Blog() {
         </Styled.BlogFilterContainer>
         <Query
           query={BLOG_SUMMARY_QUERY}
-          id={null}
+          filterTagQuery={filterTagQuery}
         >
           {({ data: { posts }}) => {
             console.log('this is data: ', posts)

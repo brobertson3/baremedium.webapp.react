@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 const BLOG_QUERY = gql`
-  query {
+  query postDetailsQuery {
     posts {
       data {
         attributes {
