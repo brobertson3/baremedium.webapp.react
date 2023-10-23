@@ -5,15 +5,15 @@ import React, { useEffect, useState } from 'react'
 //   createBrowserRouter,
 //   RouterProvider,
 // } from "react-router-dom";
+import { format } from 'date-fns'
 import '../app/App.css'
 import * as Styled from './blog-style'
 import * as Shared from '../shared-style'
 
 import Query from './Query'
-import BLOG_DETAILS_QUERY from '../../queries/blogDetails'
 import BLOG_SUMMARY_QUERY from '../../queries/blogSummary'
 import BLOG_FILTER_TAGS_QUERY from '../../queries/blogFilterTags'
-import BlogPost from './BlogPost'
+import BlogPostPage from './BlogPostPage'
 import ReactMarkdown from "react-markdown";
 import isTextEmpty from '../../utils/text/isTextEmpty'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
@@ -69,6 +69,10 @@ function Blog() {
 
   const BlogSummaryCards = ({data}) => {
     console.log('this is data in blog: ', data.data)
+    const handleBlogPostClick = (postId) => {
+      window.location.href = `blog/${postId}`
+    }
+
     return (
       <>
         {
@@ -79,7 +83,10 @@ function Blog() {
                   <Styled.BlogSummaryCardCoverContainer $coverurl={`${import.meta.env.VITE_BASE_URL}${post.attributes.Cover.data.attributes.url}`} />
                 </Styled.BlogSummaryCardCoverOuterContainer>
                 <Styled.BlogSummaryCardContent>
-                  <h4>{post.attributes.Title}</h4>
+                  <Styled.BlogSummaryCardTitle>{post.attributes.Title}</Styled.BlogSummaryCardTitle>
+                  <Styled.BlogSummaryCardMeta>by {post.attributes.writer.data.attributes.Name}</Styled.BlogSummaryCardMeta>
+                  <Styled.BlogSummaryCardMeta>{format(new Date(post.attributes.Date), 'MMM dd, yyyy')}</Styled.BlogSummaryCardMeta>
+                  <Styled.BlogSummaryCardLearnMore onClick={() => { handleBlogPostClick(post.id) }}>Learn More &gt;</Styled.BlogSummaryCardLearnMore>
                 </Styled.BlogSummaryCardContent>
                 {/* <ReactMarkdown>{post.attributes.Content}</ReactMarkdown> */}
               </Styled.BlogSummaryCardContainer>

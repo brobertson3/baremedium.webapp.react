@@ -4,6 +4,7 @@ const BLOG_QUERY = gql`
   query postSummaryQuery($filterTagQuery: [PostFiltersInput]) {
     posts(filters: { or: $filterTagQuery }) {
       data {
+        id
         attributes {
           Date
           Summary

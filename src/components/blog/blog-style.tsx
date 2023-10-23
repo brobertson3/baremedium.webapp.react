@@ -131,6 +131,23 @@ export const BlogSummaryCardCoverOuterContainer = styled.div`
   height: 200px;  
 `
 
+export const BlogSummaryCardLearnMore = styled.p`
+  margin: 8px 0;
+  color: ${Shared.customBlue};
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-block;
+`
+
+export const BlogSummaryCardMeta = styled.p`
+  margin: 4px 0;
+  font-size: 1rem;
+`
+
+export const BlogSummaryCardTitle = styled.h4`
+  margin-bottom: 12px;
+`
+
 export const BlogSummaryContainer = styled.div`
   width: 100%;
   display: flex;

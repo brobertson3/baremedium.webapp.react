@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 const BLOG_QUERY = gql`
-  query postDetailsQuery {
-    posts {
+  query postDetailsQuery($postId: ID) {
+    posts(filters: { id: { eq: $postId }}) {
       data {
         attributes {
           Date

@@ -1,7 +1,8 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import Home from '../home/Home'
 import Blog from '../blog/Blog'
+import BlogPostPage from '../blog/BlogPostPage'
 import MainNavigation from '../navigation/MainNavigation'
 import Footer from '../footer/Footer'
 import * as Styled from './app-style'
@@ -168,6 +169,10 @@ function App() {
     {
       path: '/blog',
       element: <Blog />
+    },
+    {
+      path: '/blog/:postId',
+      element: <BlogPostPage />
     }
   ]
 
