@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import * as Styled from './home-style'
 import * as Shared from '../shared-style'
 import useScreenSize from '../../hooks/useScreenSize'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import { faGithub, faLinkedin, faTwitter, faInstagram, faCodepen } from '@fortawesome/free-brands-svg-icons'
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import HealthScannerScreenshot from '../../assets/health-scanner-screenshot.png'
 import SmartDecisionScreenshot from '../../assets/smart-decision-screenshot.png'
 import BlackHistoryOTMScreenshot from '../../assets/black-history-otm-screenshot.png'
 import ProfileImage from '../../assets/baremedium-headshot.jpg'
+import SocialLinks from '../social-links/SocialLinks'
 
 interface IHomeProps {
   aboutMeSectionRef: React.RefObject<HTMLDivElement> | null;
@@ -133,29 +133,6 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
 
   const [isMobile, setIsMobile] = useState(checkIsMobile())
 
-  const socialLinks = [
-    {
-      link: 'https://github.com/brobertson3',
-      icon: faGithub,
-    },
-    {
-      link: 'https://www.linkedin.com/in/brentrobertson3',
-      icon: faLinkedin,
-    },
-    {
-      link: 'https://twitter.com/TechMeOut21',
-      icon: faTwitter,
-    },
-    {
-      link: 'https://www.instagram.com/baremedium',
-      icon: faInstagram,
-    },
-    {
-      link: 'https://codepen.io/brobertson3',
-      icon: faCodepen,
-    }
-  ]
-
   const projects = [
     {
       link: 'https://smart-decision-1308d.web.app',
@@ -207,23 +184,7 @@ function Home({ aboutMeSectionRef, contactSectionRef, navHeight, projectsSection
 
   return (
     <Shared.Main>
-      <Styled.SocialLinkDiv $screenwidth={screenSize.width}>
-        {
-          socialLinks.map((socialLink, index) => (
-            <Styled.SocialLink
-              key={`socialLink${index}`}
-              href={socialLink.link}
-              target='_blank'
-              rel='noopener'
-              $delay={0.8 - (0.2 * index)}
-            >
-              <Styled.CustomFontAwesomeIcon width={30} height={30} icon={socialLink.icon as IconProp} />
-            </Styled.SocialLink>
-          ))
-        }
-        <Styled.SocialVerticalLine />
-      </Styled.SocialLinkDiv>
-
+      <SocialLinks />
       <Styled.Header ref={intersectionHeaderRef} height={window.innerHeight - navHeight - 16} $isvisible={isHeaderVisible}>
         <div>
           <Styled.Tagline $isvisible={isHeaderVisible}>Hey there. My name is</Styled.Tagline>

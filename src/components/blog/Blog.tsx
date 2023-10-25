@@ -19,6 +19,7 @@ import isTextEmpty from '../../utils/text/isTextEmpty'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import '../blog/Blog.css'
+import SocialLinks from '../social-links/SocialLinks'
 
 interface ITagProps {
   Tags: {
@@ -133,6 +134,7 @@ function Blog() {
 
   return (
     <Shared.Main style={{ marginRight: '0' }}>
+      <SocialLinks />
       <Styled.TitleContainer>
         <Styled.Title>Blog</Styled.Title>
       </Styled.TitleContainer>
@@ -178,7 +180,6 @@ function Blog() {
           }}
         </Query>
       </Styled.BlogLayout>
-     
     </Shared.Main>
   )
 }

@@ -1,5 +1,9 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import * as Styled from './blog-query-style'
+import * as Shared from '../shared-style'
 
 // const IQueryProps = {
 //   query: string;
@@ -19,7 +23,13 @@ const Query: IQueryProps = ({ children, query, filterTagQuery = null, postId = n
     }
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <Styled.BlogQueryContainer>
+        <Styled.CustomFontAwesomeIcon width={40} height={40} $iconcolor={Shared.customBlue} spinPulse icon={faSpinner as IconProp} />
+      </Styled.BlogQueryContainer>
+    )
+  }
   if (error) return <p>Error: {JSON.stringify(error)}</p>;
   return children({ data });
 };

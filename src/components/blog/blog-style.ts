@@ -96,6 +96,14 @@ export const BlogFilterTitle = styled.h2`
 export const BlogLayout = styled.div`
   display: flex;
   justify-content: space-between;
+
+  position: relative;
+  top: 50px; 
+  opacity: 0;
+  ${animationName}
+  animation-duration: 0.7s;
+  animation-delay: 1.6s;
+  animation-fill-mode: forwards;
 `
 
 export const BlogSummaryCardContainer = styled.div`
@@ -188,6 +196,13 @@ export const SearchBoxContainer = styled.div<ISearchBoxProps>`
   position: relative;
   margin-bottom: 64px;
   transition: width 0.5s ease-in-out;
+
+  top: 50px; 
+  opacity: 0;
+  ${animationName}
+  animation-duration: 0.7s;
+  animation-delay: 1.6s;
+  animation-fill-mode: forwards;
 `
 
 export const Title = styled.h1`
