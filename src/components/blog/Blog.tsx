@@ -36,6 +36,7 @@ function Blog() {
   const [filterTagQuery, setFilterTagQuery] = useState<ITagProps[]>([])
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('searchText: ', searchText)
     setSearchText(event.target.value)
   }
 
@@ -169,6 +170,7 @@ function Blog() {
         <Query
           query={BLOG_SUMMARY_QUERY}
           filterTagQuery={filterTagQuery}
+          searchQuery={searchText}
         >
           {({ data: { posts }}) => {
             console.log('this is data: ', posts)

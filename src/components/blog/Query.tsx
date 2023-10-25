@@ -15,11 +15,12 @@ import * as Shared from '../shared-style'
 //   postId?: string;
 // }
 
-const Query: IQueryProps = ({ children, query, filterTagQuery = null, postId = null }) => {
+const Query: IQueryProps = ({ children, query, filterTagQuery = null, searchQuery = '', postId = null }) => {
   const { data, loading, error } = useQuery(query, {
     variables: {
       filterTagQuery: filterTagQuery,
       postId: postId,
+      searchQuery: searchQuery,
     }
   });
 

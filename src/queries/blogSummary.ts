@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 const BLOG_QUERY = gql`
-  query postSummaryQuery($filterTagQuery: [PostFiltersInput]) {
-    posts(filters: { or: $filterTagQuery }) {
+  query postSummaryQuery($filterTagQuery: [PostFiltersInput], $searchQuery: String!) {
+    posts(filters: { Title: { contains: $searchQuery }, or: $filterTagQuery }) {
       data {
         id
         attributes {
