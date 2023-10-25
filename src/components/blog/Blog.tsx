@@ -30,14 +30,18 @@ interface ITagProps {
 function Blog() {
 
   const [searchText, setSearchText] = useState('');
+  const [submittedSearchText, setSubmittedSearchText] = useState('');
   const [isSearchBoxFocused, setIsSearchBoxFocused] = useState(false);
   // const [blogTags, setBlogTags] = useState([]);
   const [checkedTags, setCheckedTags] = useState(['all']);
   const [filterTagQuery, setFilterTagQuery] = useState<ITagProps[]>([])
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('searchText: ', searchText)
     setSearchText(event.target.value)
+  }
+
+  const handleSearchSubmit = () => {
+    setSubmittedSearchText(searchText)
   }
 
   const handleSearchFocus = () => {
@@ -148,7 +152,7 @@ function Blog() {
           onFocus={handleSearchFocus}
           onBlur={handleSearchBlur}
         />
-        <Styled.SearchBoxButton>
+        <Styled.SearchBoxButton onClick={handleSearchSubmit}>
           <Styled.CustomFontAwesomeIcon width={24} height={24} $iconcolor={Shared.customBlue} icon={faMagnifyingGlass as IconProp} />
         </Styled.SearchBoxButton>
       </Styled.SearchBoxContainer>
@@ -167,20 +171,29 @@ function Blog() {
             }}
           </Query>
         </Styled.BlogFilterContainer>
-        <Query
-          query={BLOG_SUMMARY_QUERY}
-          filterTagQuery={filterTagQuery}
-          searchQuery={searchText}
-        >
-          {({ data: { posts }}) => {
-            console.log('this is data: ', posts)
-            return (
-              <Styled.BlogSummaryContainer>
-                <BlogSummaryCards data={posts} />
-              </Styled.BlogSummaryContainer>
-            )
-          }}
-        </Query>
+        <Styled.BlogFilterCardsContainer>
+          <Query
+            query={BLOG_SUMMARY_QUERY}
+            filterTagQuery={filterTagQuery}
+            searchQuery={submittedSearchText}
+          >
+            {({ data: { posts }}) => {
+              console.log('this is data: ', posts)
+              if (posts.data.length > 0) {
+                return (
+                  <Styled.BlogSummaryContainer>
+                    <BlogSummaryCards data={posts} />
+                  </Styled.BlogSummaryContainer>
+                )
+              }
+              return (
+                <Styled.BlogSummaryEmptyContainer>
+                  <p>Sorry, no posts were found</p>
+                </Styled.BlogSummaryEmptyContainer>
+              )
+            }}
+          </Query>
+        </Styled.BlogFilterCardsContainer>
       </Styled.BlogLayout>
     </Shared.Main>
   )

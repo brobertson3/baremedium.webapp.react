@@ -67,8 +67,12 @@ export const BlogFilterCheckbox = styled.input`
   }
 `
 
+export const BlogFilterCardsContainer = styled.div`
+  flex-basis: 80%;
+`
+
 export const BlogFilterContainer = styled.div`
-  flex-basis: 30%;
+  flex-basis: 20%;
 `
 
 export const BlogFilterList = styled.ul`
@@ -164,6 +168,11 @@ export const BlogSummaryContainer = styled.div`
   margin-left: 24px;
 `
 
+export const BlogSummaryEmptyContainer = styled.div`
+  width: 100%;
+  text-align: center;
+`
+
 export const CustomFontAwesomeIcon = styled(FontAwesomeIcon)<IFAProps>`
   width: ${props => props.width}px; 
   height: ${props => props.height}px;
@@ -189,6 +198,13 @@ export const SearchBoxButton = styled.button`
   background-color: ${Shared.greyBackgroundColor};
   border: none;
   border-radius: 100px;
+
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: ${Shared.greyHoveredBackgroundColor};
+  }
 `
 
 export const SearchBoxContainer = styled.div<ISearchBoxProps>`
