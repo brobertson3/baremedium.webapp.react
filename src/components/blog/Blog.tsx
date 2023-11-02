@@ -17,7 +17,7 @@ import BlogPostPage from './BlogPostPage'
 import ReactMarkdown from "react-markdown";
 import isTextEmpty from '../../utils/text/isTextEmpty'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faCaretUp, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import '../blog/Blog.css'
 import SocialLinks from '../social-links/SocialLinks'
 
@@ -34,7 +34,9 @@ function Blog() {
   const [isSearchBoxFocused, setIsSearchBoxFocused] = useState(false);
   // const [blogTags, setBlogTags] = useState([]);
   const [checkedTags, setCheckedTags] = useState(['all']);
-  const [filterTagQuery, setFilterTagQuery] = useState<ITagProps[]>([])
+  const [filterTagQuery, setFilterTagQuery] = useState<ITagProps[]>([]);
+  const [showMobileFilterList, setShowMobileFilterList] = useState(true);
+  const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(true);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value)
@@ -73,6 +75,11 @@ function Blog() {
     setFilterTagQuery(newTagQuery)
   }, [checkedTags])
 
+  const handleDropdownButtonClick = () => {
+    setIsFilterDropdownOpen(!isFilterDropdownOpen);
+    setShowMobileFilterList(!showMobileFilterList);
+  }
+
   const BlogSummaryCards = ({data}) => {
     console.log('this is data in blog: ', data.data)
     const handleBlogPostClick = (postId) => {
@@ -84,7 +91,7 @@ function Blog() {
         {
           data.data.map((post, index) => {
             return (
-              <Styled.BlogSummaryCardContainer>
+              <Styled.BlogSummaryCardContainer key={`BlogSummaryCardContainer-${index}`}>
                 <Styled.BlogSummaryCardCoverOuterContainer>
                   <Styled.BlogSummaryCardCoverContainer $coverurl={`${import.meta.env.VITE_BASE_URL}${post.attributes.Cover.data.attributes.url}`} />
                 </Styled.BlogSummaryCardCoverOuterContainer>
@@ -117,22 +124,34 @@ function Blog() {
    
     return (
       <>
-        <Styled.BlogFilterTitle>Filter</Styled.BlogFilterTitle>
-        <Styled.BlogFilterList>
-          {
-            finalTags.map((tag, index) => (
-              <Styled.BlogFilterListItem key={`blogFilterTag-${index}`}>
-                <Styled.BlogFilterCheckbox
-                  onChange={handleFilterCheckboxClick}
-                  type='checkbox'
-                  checked={checkedTags.includes(tag)}
-                  value={tag}
-                />
-                <Styled.BlogFilterText>{tag}</Styled.BlogFilterText>
-              </Styled.BlogFilterListItem>
-            ))
-          }
-        </Styled.BlogFilterList>
+        <Styled.BlogFilterTitleContainer>
+          <Styled.BlogFilterTitle>Filter</Styled.BlogFilterTitle>
+          <Styled.CustomFontAwesomeIcon
+            width={20}
+            height={20}
+            $iconcolor='#FFFFFF'
+            icon={faCaretUp as IconProp}
+            $isOpen={isFilterDropdownOpen}
+            onClick={handleDropdownButtonClick}
+          />
+        </Styled.BlogFilterTitleContainer>
+        {
+          <Styled.BlogFilterList $isOpen={isFilterDropdownOpen}>
+            {
+              finalTags.map((tag, index) => (
+                <Styled.BlogFilterListItem key={`blogFilterTag-${index}`}>
+                  <Styled.BlogFilterCheckbox
+                    onChange={handleFilterCheckboxClick}
+                    type='checkbox'
+                    checked={checkedTags.includes(tag)}
+                    value={tag}
+                  />
+                  <Styled.BlogFilterText>{tag}</Styled.BlogFilterText>
+                </Styled.BlogFilterListItem>
+              ))
+            }
+          </Styled.BlogFilterList>
+        }
       </>
     )
   }

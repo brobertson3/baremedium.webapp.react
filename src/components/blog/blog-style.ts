@@ -6,6 +6,11 @@ interface IFAProps {
   width: number;
   height: number;
   $iconcolor?: string;
+  $isOpen?: boolean;
+}
+
+interface IFilterListProps {
+  $isOpen: boolean;
 }
 
 interface ISearchBoxProps {
@@ -69,16 +74,31 @@ export const BlogFilterCheckbox = styled.input`
 
 export const BlogFilterCardsContainer = styled.div`
   flex-basis: 80%;
+
+  @media (max-width: 600px) {
+    margin-right: 24px;
+  }
 `
 
 export const BlogFilterContainer = styled.div`
   flex-basis: 20%;
+
+  @media (max-width: 600px) {
+
+  }
 `
 
-export const BlogFilterList = styled.ul`
+export const BlogFilterDropdownButton = styled.button`
+  height: 30px;
+`
+
+export const BlogFilterList = styled.ul<IFilterListProps>`
   list-style: none;
   padding-left: 0;
   margin-top: 24px;
+  height: ${props => props.$isOpen ? '100%' : '0'};
+  opacity: ${props => props.$isOpen ? '1' : '0'};
+  transition: all 2.5s;
 `
 
 export const BlogFilterListItem = styled.li`
@@ -93,8 +113,14 @@ export const BlogFilterText = styled.p`
 `
 
 export const BlogFilterTitle = styled.h2`
+  display: inline-block;
+`
+
+export const BlogFilterTitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid currentColor;
-  padding-bottom: 16px;
 `
 
 export const BlogLayout = styled.div`
@@ -108,6 +134,10 @@ export const BlogLayout = styled.div`
   animation-duration: 0.7s;
   animation-delay: 1.6s;
   animation-fill-mode: forwards;
+
+  @media (max-width: 600px) {
+    display: block;
+  }
 `
 
 export const BlogSummaryCardContainer = styled.div`
@@ -119,6 +149,10 @@ export const BlogSummaryCardContainer = styled.div`
 
   &:hover {
     border-color: ${Shared.customRed};
+  }
+
+  @media (max-width: 600px) {
+    width: 100%;
   }
 `
 
@@ -177,6 +211,8 @@ export const CustomFontAwesomeIcon = styled(FontAwesomeIcon)<IFAProps>`
   width: ${props => props.width}px; 
   height: ${props => props.height}px;
   ${props => props.$iconcolor ? `color: ${props.$iconcolor};` : ''}
+  transform: ${props => props.$isOpen ? 'rotate(180deg)' : 'rotate(0)'};
+  transition: transform 3s;
 `
 
 export const SearchBox = styled.input`
@@ -219,6 +255,10 @@ export const SearchBoxContainer = styled.div<ISearchBoxProps>`
   animation-duration: 0.7s;
   animation-delay: 1.6s;
   animation-fill-mode: forwards;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `
 
 export const Title = styled.h1`

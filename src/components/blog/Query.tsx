@@ -16,12 +16,17 @@ import * as Shared from '../shared-style'
 // }
 
 const Query: IQueryProps = ({ children, query, filterTagQuery = null, searchQuery = '', postId = null }) => {
+  console.log('filterTagQuery: ', filterTagQuery)
+  console.log('searchQuery: ', searchQuery)
+  console.log('postId: ', postId)
   const { data, loading, error } = useQuery(query, {
     variables: {
       filterTagQuery: filterTagQuery,
       postId: postId,
       searchQuery: searchQuery,
-    }
+    },
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-first',
   });
 
   if (loading) {
@@ -31,7 +36,12 @@ const Query: IQueryProps = ({ children, query, filterTagQuery = null, searchQuer
       </Styled.BlogQueryContainer>
     )
   }
-  if (error) return <p>Error: {JSON.stringify(error)}</p>;
+
+  if (error) {
+    console.log('this is error: ', error)
+    return <p>Error: {JSON.stringify(error)}</p>;
+  }
+
   return children({ data });
 };
 
